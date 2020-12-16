@@ -2657,7 +2657,7 @@ pages:
     # --------------- end "divvyd API" section --------------------------------
 
     -   name: DivvyAPI Reference # name is required for remote-sourced files
-        md: https://raw.githubusercontent.com/divvy/divvy-lib/1.0.0/docs/index.md
+        md: https://raw.githubusercontent.com/xdv/divvy-lib/1.0.0/docs/index.md
         html: divvyapi-reference.html
         funnel: Docs
         doc_type: References
