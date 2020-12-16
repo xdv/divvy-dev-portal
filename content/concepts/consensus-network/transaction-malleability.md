@@ -1,6 +1,6 @@
 # Transaction Malleability
 
-A transaction is "malleable" if it can be changed in any way after being signed, without the keys to sign it. In the XRP Ledger, the **functionality** of a signed transaction cannot change, but in some circumstances a third party _could_ change the signature and identifying hash of a transaction.
+A transaction is "malleable" if it can be changed in any way after being signed, without the keys to sign it. In the XDV Ledger, the **functionality** of a signed transaction cannot change, but in some circumstances a third party _could_ change the signature and identifying hash of a transaction.
 
 If vulnerable software submits malleable transactions and assumes they can only execute under the original hash, it may lose track of transactions. In the worst case, malicious actors could take advantage of this to steal money from the vulnerable system.
 
@@ -17,7 +17,7 @@ There are two circumstances that could lead to transaction malleability:
 
 ## Background
 
-In the XRP Ledger, a transaction cannot execute unless:
+In the XDV Ledger, a transaction cannot execute unless:
 
 - All [fields of a transaction](transaction-common-fields.html) are signed, except the signature itself.
 - The key pair(s) used to sign the transaction are [authorized to send transactions on behalf of that account](transaction-basics.html#authorizing-transactions).
@@ -35,19 +35,19 @@ To be "canonical", signatures created with the ECDSA algorithm and secp256k1 cur
 - The signature must not have any padding bytes outside the DER-encoded data.
 - The signature's component integers must not be negative, and they must not be larger than the secp256k1 modulus.
 
-Generally speaking, any standard ECDSA implementation handles these requirements automatically. However, with secp256k1, those requirements are insufficient to prevent malleability. Thus, the XRP Ledger has a concept of "fully canonical" signatures which do not have the same problem.
+Generally speaking, any standard ECDSA implementation handles these requirements automatically. However, with secp256k1, those requirements are insufficient to prevent malleability. Thus, the XDV Ledger has a concept of "fully canonical" signatures which do not have the same problem.
 
 An ECDSA signature consists of two integers, called R and S. The secp256k1 modulus, called N, is a constant value for all secp256k1 signatures. Specifically, N is the value `0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141`. For any given signature `(R,S)`, the signature `(R, N-S)` (that is, using N minus S in place of S) is also valid.
 
-Thus, to have _fully_ canonical signatures, one must choose which of the two possibilities is preferred and declare the other to be invalid. The creators of the XRP Ledger decided arbitrarily to prefer the _smaller_ of the two possible values, `S` or `N-S`. A transaction is considered _fully canonical_ if it uses the preferred (smaller) value of `S`, and follows all the normal rules for being canonical.
+Thus, to have _fully_ canonical signatures, one must choose which of the two possibilities is preferred and declare the other to be invalid. The creators of the XDV Ledger decided arbitrarily to prefer the _smaller_ of the two possible values, `S` or `N-S`. A transaction is considered _fully canonical_ if it uses the preferred (smaller) value of `S`, and follows all the normal rules for being canonical.
 
-To maintain compatibility with older software that did not always generate fully canonical signatures, the XRP Ledger accepts transactions that are not fully canonical. To protect new users from exploits, the XRP Ledger has a flag on transactions called [**tfFullyCanonicalSig**](transaction-common-fields.html#global-flags), which requires that the transaction use a _fully-canonical_ signature to be valid.
+To maintain compatibility with older software that did not always generate fully canonical signatures, the XDV Ledger accepts transactions that are not fully canonical. To protect new users from exploits, the XDV Ledger has a flag on transactions called [**tfFullyCanonicalSig**](transaction-common-fields.html#global-flags), which requires that the transaction use a _fully-canonical_ signature to be valid.
 
 To calculate a fully-canonical ECDSA signature, one must compare S and N-S to determine which is smaller, then use that value in the `Signature` field of the transaction.
 
-All XRP Ledger software that Ripple publishes (including `rippled`, and ripple-lib/RippleAPI) generates only fully-canonical signatures. To further protect users, Ripple has configured its code to enable the **tfFullyCanonicalSig** flag by default where possible. Ripple strongly encourages third-party implementations of XRP Ledger software to generate only fully-canonical signatures, and enable tfFullyCanonicalSig on transactions by default.
+All XDV Ledger software that Divvy publishes (including `divvyd`, and divvy-lib/DivvyAPI) generates only fully-canonical signatures. To further protect users, Divvy has configured its code to enable the **tfFullyCanonicalSig** flag by default where possible. Divvy strongly encourages third-party implementations of XDV Ledger software to generate only fully-canonical signatures, and enable tfFullyCanonicalSig on transactions by default.
 
-There are two cases where Ripple's signing implementations for the XRP Ledger do not automatically enable the tfFullyCanonicalSig flag. Users should take care to set the flag in these situations:
+There are two cases where Divvy's signing implementations for the XDV Ledger do not automatically enable the tfFullyCanonicalSig flag. Users should take care to set the flag in these situations:
 
 - When the user explicitly specifies the `Flags` field of the transaction. Use bitwise OR to apply tfFullyCanonicalSig _and_ any other desired flags.
 - When the user provides a multi-signature for a transaction. Since different participants in a multi-signature must sign _exactly_ the same data, the signing code does not pre-process the transaction instructions to add the tfFullyCanonicalSig flag. For multi-signed transactions, always enable the tfFullyCanonicalSig flag explicitly.
@@ -82,7 +82,7 @@ For greater security, these guidelines provide multiple layers of protection.
 
 ## Exploit With Malleable Transactions
 
-If the software you use to interface with the XRP Ledger sends malleable transactions, a malicious actor may be able to trick your software into losing track of a transaction's final outcome and potentially (in the worst case) sending equivalent payments multiple times.
+If the software you use to interface with the XDV Ledger sends malleable transactions, a malicious actor may be able to trick your software into losing track of a transaction's final outcome and potentially (in the worst case) sending equivalent payments multiple times.
 
 If you use single-signatures and always enable the tfFullyCanonicalSig flag, you are not vulnerable to this exploit. If you use multi-signatures, you may be vulnerable if you or your signers provide more signatures than necessary.
 
@@ -102,7 +102,7 @@ The process to exploit a vulnerable system follows a series of steps similar to 
 
     Most likely, the vulnerable transaction uses a fully-canonical signature, but the flags indicate that the transaction would also be valid with a non-fully-canonical one. The transaction may also use `LastLedgerSequence` so that its final outcome is clear in a finite amount of time.
 
-2. The system notes the identifying hash of the vulnerable transaction, submits it to the XRP Ledger network, then begins monitoring for that hash to be included in a validated ledger version.
+2. The system notes the identifying hash of the vulnerable transaction, submits it to the XDV Ledger network, then begins monitoring for that hash to be included in a validated ledger version.
 
 3. A malicious actor sees the transaction propagating through the network before it becomes confirmed.
 
@@ -124,9 +124,9 @@ The process to exploit a vulnerable system follows a series of steps similar to 
 
 6. The malicious actor's version of the transaction achieves consensus and becomes included in a validated ledger.
 
-    At this point, the transaction has executed and cannot be reversed. Its effects (such as sending XRP) are final. The original version of the transaction is no longer valid because its `Sequence` number has been used.
+    At this point, the transaction has executed and cannot be reversed. Its effects (such as sending XDV) are final. The original version of the transaction is no longer valid because its `Sequence` number has been used.
 
-    The effects of the transaction in the XRP Ledger are exactly the same as if the original version had executed.
+    The effects of the transaction in the XDV Ledger are exactly the same as if the original version had executed.
 
 7. The vulnerable system does not see the transaction hash it is expecting, and erroneously concludes that the transaction did not execute.
 
@@ -136,12 +136,12 @@ The process to exploit a vulnerable system follows a series of steps similar to 
 
 8. The vulnerable system takes action assuming that the transaction has failed.
 
-    For example, it may refund (or simply not debit) a customer's balance in its own system, to account for the funds that it thinks have not been sent in the XRP Ledger.
+    For example, it may refund (or simply not debit) a customer's balance in its own system, to account for the funds that it thinks have not been sent in the XDV Ledger.
 
     Worse, the vulnerable system might construct a new transaction to replace the transaction, picking new `Sequence`, `LastLedgerSequence`, and `Fee` parameters based on the current state of the network, but keeping the rest of the transaction the same as the original. If this new transaction is also malleable, the system could be exploited in the same way an indefinite number of times.
 
 
 <!--{# common link defs #}-->
-{% include '_snippets/rippled-api-links.md' %}
+{% include '_snippets/divvyd-api-links.md' %}
 {% include '_snippets/tx-type-links.md' %}
-{% include '_snippets/rippled_versions.md' %}
+{% include '_snippets/divvyd_versions.md' %}

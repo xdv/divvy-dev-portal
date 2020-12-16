@@ -1,6 +1,6 @@
 # Assign a Regular Key Pair
 
-The XRP Ledger allows an account to authorize a secondary key pair, called a _regular key pair_, to sign future transactions. If the private key of a regular key pair is compromised, you can remove or replace it without changing the rest of your account and re-establishing its relationships to other accounts. You can also rotate a regular key pair proactively. (Neither of those things is possible for the master key pair of an account, which is intrinsically linked to the account's address.)
+The XDV Ledger allows an account to authorize a secondary key pair, called a _regular key pair_, to sign future transactions. If the private key of a regular key pair is compromised, you can remove or replace it without changing the rest of your account and re-establishing its relationships to other accounts. You can also rotate a regular key pair proactively. (Neither of those things is possible for the master key pair of an account, which is intrinsically linked to the account's address.)
 
 For more information about master and regular key pairs, see [Cryptographic Keys](cryptographic-keys.html).
 
@@ -42,7 +42,7 @@ An example of the request format:
 
 ```
 #Syntax: wallet_propose
-rippled wallet_propose
+divvyd wallet_propose
 ```
 
 <!-- MULTICODE_BLOCK_END -->
@@ -176,7 +176,7 @@ An example of the request format:
 
 ```
 #Syntax: sign secret tx_json
-rippled sign ssCATR7CBvn4GLd1UuU2bqqQffHki '{"TransactionType": "SetRegularKey", "Account": "rUAi7pipxGpYfPNg3LtPcf2ApiS8aw9A93", "RegularKey": "rsprUqu6BHAffAeG4HpSdjBNvnA6gdnZV7"}'
+divvyd sign ssCATR7CBvn4GLd1UuU2bqqQffHki '{"TransactionType": "SetRegularKey", "Account": "rUAi7pipxGpYfPNg3LtPcf2ApiS8aw9A93", "RegularKey": "rsprUqu6BHAffAeG4HpSdjBNvnA6gdnZV7"}'
 ```
 
 <!-- MULTICODE_BLOCK_END -->
@@ -298,7 +298,7 @@ An example of the request format:
 
 ```
 #Syntax: submit tx_blob
-rippled submit 1200052280000000240000000468400000000000000A73210384CA3C528F10C75F26E0917F001338BD3C9AA1A39B9FBD583DFFFD96CF2E2D7A7446304402204BCD5663F3A2BA02D2CE374439096EC6D27273522CD6E6E0BDBFB518730EAAE402200ECD02D8D2525D6FA4642613E71E395ECCEA01C42C35A668BF092A00EB649C268114830923439D307E642CED308FD91EF701A7BAA74788141620D685FB08D81A70D0B668749CF2E130EA7540
+divvyd submit 1200052280000000240000000468400000000000000A73210384CA3C528F10C75F26E0917F001338BD3C9AA1A39B9FBD583DFFFD96CF2E2D7A7446304402204BCD5663F3A2BA02D2CE374439096EC6D27273522CD6E6E0BDBFB518730EAAE402200ECD02D8D2525D6FA4642613E71E395ECCEA01C42C35A668BF092A00EB649C268114830923439D307E642CED308FD91EF701A7BAA74788141620D685FB08D81A70D0B668749CF2E130EA7540
 ```
 
 <!-- MULTICODE_BLOCK_END -->
@@ -453,7 +453,7 @@ Here's an example of the request format. Note that the request does not include 
 
 ```
 #Syntax: sign secret tx_json
-rippled sign sh8i92YRnEjJy3fpFkL8txQSCVo79 '{"TransactionType": "AccountSet", "Account": "rUAi7pipxGpYfPNg3LtPcf2ApiS8aw9A93"}'
+divvyd sign sh8i92YRnEjJy3fpFkL8txQSCVo79 '{"TransactionType": "AccountSet", "Account": "rUAi7pipxGpYfPNg3LtPcf2ApiS8aw9A93"}'
 ```
 
 <!-- MULTICODE_BLOCK_END -->
@@ -572,7 +572,7 @@ An example of the request format:
 
 ```
 #Syntax: submit tx_blob
-rippled submit 1200032280000000240000000468400000000000000A73210330E7FC9D56BB25D6893BA3F317AE5BCF33B3291BD63DB32654A313222F7FD02074473045022100A50E867D3B1B5A39F23F1ABCA5C7C3EC755442FDAA357EFD897B865ACA7686DB02206077BF459BCE39BCCBFE1A128DA986D1E00CBEC5F0D6B0E11710F60BE2976FB88114623B8DA4A0BFB3B61AB423391A182DC693DC159E
+divvyd submit 1200032280000000240000000468400000000000000A73210330E7FC9D56BB25D6893BA3F317AE5BCF33B3291BD63DB32654A313222F7FD02074473045022100A50E867D3B1B5A39F23F1ABCA5C7C3EC755442FDAA357EFD897B865ACA7686DB02206077BF459BCE39BCCBFE1A128DA986D1E00CBEC5F0D6B0E11710F60BE2976FB88114623B8DA4A0BFB3B61AB423391A182DC693DC159E
 ```
 
 <!-- MULTICODE_BLOCK_END -->
@@ -667,9 +667,9 @@ Now that you're familiar with the benefits of assigning a regular key pair to an
 - [Change or Remove a Regular Key Pair](change-or-remove-a-regular-key-pair.html)
 - [Set Up Multi-Signing](set-up-multi-signing.html)
 - [Issuing and Operational Addresses](issuing-and-operational-addresses.html)
-- [List XRP as an Exchange](list-xrp-as-an-exchange.html)
+- [List XDV as an Exchange](list-xdv-as-an-exchange.html)
 
 <!--{# common link defs #}-->
-{% include '_snippets/rippled-api-links.md' %}			
+{% include '_snippets/divvyd-api-links.md' %}			
 {% include '_snippets/tx-type-links.md' %}			
-{% include '_snippets/rippled_versions.md' %}
+{% include '_snippets/divvyd_versions.md' %}

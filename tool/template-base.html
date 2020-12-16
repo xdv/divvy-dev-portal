@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
 
-    <title>{{ currentpage.name }} - XRP Ledger Dev Portal</title>
+    <title>{{ currentpage.name }} - XDV Ledger Dev Portal</title>
 
     <!--[if lt IE 9]>
       <script src="/dist/js/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -20,8 +20,8 @@
     <!-- jQuery -->
     <script src="assets/vendor/jquery-1.11.1.min.js"></script>
 
-    <!-- Custom Stylesheets. ripple.css includes bootstrap, font stuff -->
-    <!-- <link href="assets/css/ripple.css" rel="stylesheet" /> -->
+    <!-- Custom Stylesheets. divvy.css includes bootstrap, font stuff -->
+    <!-- <link href="assets/css/divvy.css" rel="stylesheet" /> -->
     <link href="assets/vendor/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/devportal.css" rel="stylesheet" />
 
@@ -49,10 +49,10 @@
 
 </head>
 
-<body class="xrp-ledger-dev-portal {% if currentpage.sidebar != "disabled" %}sidebar-primary {% endif %}{% block bodyclasses %}{% endblock %}">
+<body class="xdv-ledger-dev-portal {% if currentpage.sidebar != "disabled" %}sidebar-primary {% endif %}{% block bodyclasses %}{% endblock %}">
 
   <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
-    <a href="{% if target.no_cover %}/{% else %}index.html{% endif %}" class="navbar-brand"><img src="assets/img/XRPLedger_DevPortal_Gray.svg" class="logo" width="120" height="35" alt="XRP Ledger Dev Portal" /></a>
+    <a href="{% if target.no_cover %}/{% else %}index.html{% endif %}" class="navbar-brand"><img src="assets/img/XDVLedger_DevPortal_Gray.svg" class="logo" width="120" height="35" alt="XDV Ledger Dev Portal" /></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHolder" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -73,7 +73,7 @@
         <div class="form-inline">
           <label class="sr-only" for="topsearchbar">Search this site</label>
           <input id="topsearchbar" name="q" type="text" class="form-control" class="top-search" placeholder="Search this site...">
-          <input name="q" value="site:developers.ripple.com" type="hidden">
+          <input name="q" value="site:developers.xdv.io" type="hidden">
           <button type="submit" class="btn btn-default fa fa-search">&nbsp;</button>
         </div>
       </form>

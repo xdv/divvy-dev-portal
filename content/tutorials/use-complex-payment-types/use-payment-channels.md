@@ -1,8 +1,8 @@
 # Use Payment Channels
 
-Payment Channels are an advanced feature for sending "asynchronous" XRP payments that can be divided into very small increments and settled later. This tutorial walks through the entire process of using a [payment channel](payment-channels.html), with examples using the [JSON-RPC API](rippled-api.html) of a local `rippled` server.
+Payment Channels are an advanced feature for sending "asynchronous" XDV payments that can be divided into very small increments and settled later. This tutorial walks through the entire process of using a [payment channel](payment-channels.html), with examples using the [JSON-RPC API](divvyd-api.html) of a local `divvyd` server.
 
-Ideally, to step through this tutorial, you would have two people, each with the keys to a [funded XRP Ledger account](accounts.html). However, you can also step through the tutorial as one person managing two XRP Ledger addresses.
+Ideally, to step through this tutorial, you would have two people, each with the keys to a [funded XDV Ledger account](accounts.html). However, you can also step through the tutorial as one person managing two XDV Ledger addresses.
 
 ## Example Values
 
@@ -17,11 +17,11 @@ The example addresses used in this tutorial are:
 
 **Tip:** In this example, the channel's public key is the public key from the payer's master key pair. This is perfectly safe and valid. It is also perfectly safe and valid to use a different key pair, as long as only the payer knows the public and secret keys for that key pair. <!-- Editor's note: We don't have a good page to link to explain key pairs as of time of this writing. -->
 
-Additionally, you'll need a `rippled` server to send transactions to. The examples in this tutorial assume a `rippled` server is running on the test machine (`localhost`) with an unencrypted JSON-RPC API endpoint on port **5005**.
+Additionally, you'll need a `divvyd` server to send transactions to. The examples in this tutorial assume a `divvyd` server is running on the test machine (`localhost`) with an unencrypted JSON-RPC API endpoint on port **5005**.
 
-To test without transferring real XRP, you can use [Ripple Test Net](https://ripple.com/build/ripple-test-net/) addresses with Test Net XRP. If you do use the Ripple Test Net, you can use the Test Net servers' JSON-RPC API by connecting to `https://api.altnet.rippletest.net:51234` instead of `http://localhost:5005/`.
+To test without transferring real XDV, you can use [Divvy Test Net](https://xdv.io/build/divvy-test-net/) addresses with Test Net XDV. If you do use the Divvy Test Net, you can use the Test Net servers' JSON-RPC API by connecting to `https://api.altnet.divvytest.net:51234` instead of `http://localhost:5005/`.
 
-You can use any amount of XRP for the payment channels. The example values in this tutorial set aside 100 XRP (`100000000` drops) in a payment channel for at least 1 day.
+You can use any amount of XDV for the payment channels. The example values in this tutorial set aside 100 XDV (`100000000` drops) in a payment channel for at least 1 day.
 
 ## Flow Diagram
 [flow diagram]: #flow-diagram
@@ -34,7 +34,7 @@ You can match up the numbered steps in this diagram with the steps of this tutor
 
 1. [Payer: Create channel](#1-the-payer-creates-a-payment-channel-to-a-particular-recipient)
 2. [Payee: Check channel](#2-the-payee-checks-specifics-of-the-payment-channel)
-3. [Payer: Sign claims](#3-the-payer-creates-one-or-more-signed-claims-for-the-xrp-in-the-channel)
+3. [Payer: Sign claims](#3-the-payer-creates-one-or-more-signed-claims-for-the-xdv-in-the-channel)
 4. [Payer: Send claim(s) to payee](#4-the-payer-sends-a-claim-to-the-payee-as-payment-for-goods-or-services)
 5. [Payee: Verify claims](#5-the-payee-verifies-the-claims)
 6. [Payee: Provide goods or services](#6-payee-provides-goods-or-services)
@@ -49,9 +49,9 @@ This is a [PaymentChannelCreate transaction][]. As part of this process, the pay
 
 **Tip:** The "settlement delay" does not delay the settlement, which can happen as fast as a ledger version closes (3-5 seconds). The "settlement delay" is a forced delay on closing the channel so that the payee has a chance to finish with settlement.
 
-The following example shows creation of a payment channel by [submitting](submit.html#sign-and-submit-mode) to a local `rippled` server with the JSON-RPC API. The payment channel allocates 100 XRP from the [example payer](#example-values) (rN7n7...) to the [example payee](#example-values) (rf1Bi...) with a settlement delay of 1 day. The public key is the example payer's master public key, in hexadecimal.
+The following example shows creation of a payment channel by [submitting](submit.html#sign-and-submit-mode) to a local `divvyd` server with the JSON-RPC API. The payment channel allocates 100 XDV from the [example payer](#example-values) (rN7n7...) to the [example payee](#example-values) (rf1Bi...) with a settlement delay of 1 day. The public key is the example payer's master public key, in hexadecimal.
 
-**Note:** A payment channel counts as one object toward the payer's [owner reserve](reserves.html#owner-reserves). The owner must keep at least enough XRP to satisfy the reserve after subtracting the XRP allocated to the payment channel.
+**Note:** A payment channel counts as one object toward the payer's [owner reserve](reserves.html#owner-reserves). The owner must keep at least enough XDV to satisfy the reserve after subtracting the XDV allocated to the payment channel.
 
 Request:
 
@@ -209,13 +209,13 @@ The payee should check that the parameters of the payment channel are suitable f
 Since there can be multiple channels between the same two parties, it is important for the payee to check the qualities of the correct channel. If there is any chance of confusion, the payer should clarify the Channel ID (`channel_id`) of the channel to use.
 
 
-## 3. The payer creates one or more signed _claims_ for the XRP in the channel.
+## 3. The payer creates one or more signed _claims_ for the XDV in the channel.
 
 The amounts of these claims depends on the specific goods or services the payer wants to pay for.
 
-Each claim must be for a cumulative amount. In other words, to buy two items at 10 XRP each, the first claim should have an amount of 10 XRP and the second claim should have an amount of 20 XRP. The claim can never be more than the total amount of XRP allocated to the channel. (A [PaymentChannelFund][] transaction can increase the total amount of XRP allocated to the channel.)
+Each claim must be for a cumulative amount. In other words, to buy two items at 10 XDV each, the first claim should have an amount of 10 XDV and the second claim should have an amount of 20 XDV. The claim can never be more than the total amount of XDV allocated to the channel. (A [PaymentChannelFund][] transaction can increase the total amount of XDV allocated to the channel.)
 
-You can create claims with the [channel_authorize method][]. The following example authorizes 1 XRP from the channel:
+You can create claims with the [channel_authorize method][]. The following example authorizes 1 XDV from the channel:
 
 Request:
 
@@ -250,7 +250,7 @@ The exact format of the claim is not important as long as it communicates the fo
 | Field                   | Example                                            |
 |:------------------------|:---------------------------------------------------|
 | Channel ID              | `5DB01B7FFED6B67E6B0414DED11E051D2EE2B7619CE0EAA6286D67A3A4D5BDB3` |
-| Amount of XRP, in drops | `1000000`                                          |
+| Amount of XDV, in drops | `1000000`                                          |
 | Signature               | `304402204EF0AFB78AC23ED1C472E74F4299C0C21F1B21D07EFC0A3838A420F76D783A` <br/> `400220154FB11B6F54320666E4C36CA7F686C16A3A0456800BBC43746F34AF50290064` _(Note: this long string has been broken to fit on one line.)_ |
 
 The payee also needs to know the Public Key associated with the channel, which is the same throughout the channel's life.
@@ -287,7 +287,7 @@ Response:
         }
     }
 
-If the response shows `"signature_verified": true` then the claim's signature is genuine. The payee must **also** confirm that the channel has enough XRP available to honor the claim. To do this, the payee uses the [account_channels method][] to confirm the most recent validated state of the payment channel.
+If the response shows `"signature_verified": true` then the claim's signature is genuine. The payee must **also** confirm that the channel has enough XDV available to honor the claim. To do this, the payee uses the [account_channels method][] to confirm the most recent validated state of the payment channel.
 
 Request:
 
@@ -329,16 +329,16 @@ The payee should check the following:
 
 - Find the object in the `channels` array whose `channel_id` matches the Channel ID of the claim. It is possible to have multiple payment channels, even between the same parties, but a claim can only be redeemed against the channel with the matching ID.
 - Confirm that the `expiration` (mutable expiration) of the channel, if present, is not too soon. The payee must redeem claims before this time.
-- Confirm that the `amount` of the claim is equal or less than the `amount` of the channel. If the `amount` of the claim is higher, the claim cannot be redeemed unless the payer uses a [PaymentChannelFund transaction][] to increase the total amount of XRP available to the channel.
+- Confirm that the `amount` of the claim is equal or less than the `amount` of the channel. If the `amount` of the claim is higher, the claim cannot be redeemed unless the payer uses a [PaymentChannelFund transaction][] to increase the total amount of XDV available to the channel.
 - Confirm that the `balance` of the channel matches the amount the payee expects to have already received from the channel. If these do not match up, the payee should double-check the channel's transaction history. Some possible explanations for a mismatch include:
-    - The payer used a [PaymentChannelClaim][] transaction to deliver XRP from the channel to the payee, but the payee did not notice and record the incoming transaction.
+    - The payer used a [PaymentChannelClaim][] transaction to deliver XDV from the channel to the payee, but the payee did not notice and record the incoming transaction.
     - The payee's records include transactions that are "in flight" or have not yet been included in the latest validated ledger version. The payee can use the [tx method][] to look up the state of individual transactions to check this.
     - The `account_channels` request did not specify the correct ledger version. (Use `"ledger_index": "validated"` to get the latest validated ledger version)
-    - The payee previously redeemed XRP but forgot to record it.
-    - The payee attempted to redeem XRP and recorded the tentative result, but the transaction's final validated result was not the same and the payee neglected to record the final validated result.
-    - The `rippled` server the payee queried has lost sync with the rest of the network or is experiencing an unknown bug. Use the [server_info method][] to check the state of the server. (If you can reproduce this situation, please [report an issue](https://github.com/ripple/rippled/issues/).)
+    - The payee previously redeemed XDV but forgot to record it.
+    - The payee attempted to redeem XDV and recorded the tentative result, but the transaction's final validated result was not the same and the payee neglected to record the final validated result.
+    - The `divvyd` server the payee queried has lost sync with the rest of the network or is experiencing an unknown bug. Use the [server_info method][] to check the state of the server. (If you can reproduce this situation, please [report an issue](https://github.com/xdv/divvyd/issues/).)
 
-After confirming both the signature and the current state of the payment channel, the payee has not yet received the XRP, but is certain that he or she _can_ redeem the XRP as long as the transaction to do so is processed before the channel expires.
+After confirming both the signature and the current state of the payment channel, the payee has not yet received the XDV, but is certain that he or she _can_ redeem the XDV as long as the transaction to do so is processed before the channel expires.
 
 
 ## 6. Payee provides goods or services.
@@ -350,22 +350,22 @@ For purposes of this tutorial, the payee can give the payer a high-five or equiv
 
 ## 7. Repeat steps 3-6 as desired.
 
-The payer and payee can repeat steps 3 through 6 (creating, transmitting, and verifying claims in exchange for goods and services) as many times and as often as they like without waiting for the XRP Ledger itself. The two main limits of this process are:
+The payer and payee can repeat steps 3 through 6 (creating, transmitting, and verifying claims in exchange for goods and services) as many times and as often as they like without waiting for the XDV Ledger itself. The two main limits of this process are:
 
-- The amount of XRP in the payment channel. (If necessary, the payer can send a [PaymentChannelFund transaction][] to increase the total amount of XRP available to the channel.)
+- The amount of XDV in the payment channel. (If necessary, the payer can send a [PaymentChannelFund transaction][] to increase the total amount of XDV available to the channel.)
 
 - The immutable expiration of the payment channel, if one is set. (The `cancel_after` field in the response to the [account_channels method][] shows this.)
 
 
 ## 8. When ready, the payee redeems a claim for the authorized amount.
 
-This is the point where the payee finally receives some XRP from the channel.
+This is the point where the payee finally receives some XDV from the channel.
 
 This is a [PaymentChannelClaim transaction][] with the `Balance`, `Amount`, `Signature`, and `PublicKey` fields provided. Because claim values are cumulative, the payee only needs to redeem the largest (most recent) claim to get the full amount. The payee is not required to redeem the claim for the full amount authorized.
 
 The payee can do this multiple times, to settle partially while still doing business, if desired.
 
-Example of claiming XRP from a channel:
+Example of claiming XDV from a channel:
 
 Request:
 
@@ -424,9 +424,9 @@ The payee should confirm that this transaction is successful in a validated ledg
 
 This is a [PaymentChannelClaim transaction][] with the `tfClose` flag set, or a [PaymentChannelFund transaction][] with the `Expiration` field set. _(9a in the [flow diagram][])_.
 
-If the channel has no XRP remaining in it when the payer requests to close the channel, it closes immediately.
+If the channel has no XDV remaining in it when the payer requests to close the channel, it closes immediately.
 
-If the channel _does_ have XRP remaining, the request to close a channel acts as a final warning to the payee to redeem any outstanding claims right away. The payee has an amount of time no less than the settlement delay before the channel is closed. The exact number of seconds varies slightly based on the close times of ledgers.
+If the channel _does_ have XDV remaining, the request to close a channel acts as a final warning to the payee to redeem any outstanding claims right away. The payee has an amount of time no less than the settlement delay before the channel is closed. The exact number of seconds varies slightly based on the close times of ledgers.
 
 The payee can also close a payment channel immediately after processing a claim _(9b in the [flow diagram][])_.
 
@@ -471,15 +471,15 @@ Example `account_channels` response:
         }
     }
 
-In this example, the `expiration` value 547073182 in [seconds since the Ripple Epoch][] maps to 2017-05-02T20:46:22Z, so any claims not redeemed by that time are no longer valid.
+In this example, the `expiration` value 547073182 in [seconds since the Divvy Epoch][] maps to 2017-05-02T20:46:22Z, so any claims not redeemed by that time are no longer valid.
 
 ## 10. Anyone can close the expired channel.
 
-After the settlement delay has passed or the channel has reached its planned expiration time, the channel is expired. Any further transaction that would affect the channel can only close it, returning unclaimed XRP to the payer.
+After the settlement delay has passed or the channel has reached its planned expiration time, the channel is expired. Any further transaction that would affect the channel can only close it, returning unclaimed XDV to the payer.
 
 The channel can remain on the ledger in an expired state indefinitely. This is because the ledger cannot change except as the results of a transaction, so _someone_ must send a transaction to cause the expired channel to close. As long as the channel remains on the ledger, it counts as an object owned by the payer for purposes of the [owner reserve](reserves.html#owner-reserves).
 
-Ripple recommends that the payer sends a second [PaymentChannelClaim transaction][] with the `tfClose` flag for this purpose. However, other accounts, even those not involved in the payment channel, can cause an expired channel to close.
+Divvy recommends that the payer sends a second [PaymentChannelClaim transaction][] with the `tfClose` flag for this purpose. However, other accounts, even those not involved in the payment channel, can cause an expired channel to close.
 
 The command to submit the transaction is the same as the previous example requesting channel expiration. (However, its resulting [auto-filled](transaction-common-fields.html#auto-fillable-fields) `Sequence` number, signature, and identifying hash are unique.)
 
@@ -499,7 +499,7 @@ Example of [submitting](submit.html#sign-and-submit-mode) a transaction to close
         }]
     }
 
-When the transaction has been included in a validated ledger, you can look at the metadata of the transaction to confirm that it deleted the channel and returned the XRP to the sender.
+When the transaction has been included in a validated ledger, you can look at the metadata of the transaction to confirm that it deleted the channel and returned the XDV to the sender.
 
 Example response from using the [tx method][] to look up the transaction from this step:
 
@@ -590,18 +590,18 @@ Example response from using the [tx method][] to look up the transaction from th
 In the transaction's metadata, look for the following:
 
 - A `DeletedNode` entry with `"LedgerEntryType": "PayChannel"`. The `LedgerIndex` field should match the Channel ID. This indicates that the channel was deleted.
-- A `ModifiedNode` entry with `"LedgerEntryType": "AccountRoot"`. The change in the `Balance` field in `PreviousFields` and `FinalFields` reflects the unspent XRP being returned to the payer.
+- A `ModifiedNode` entry with `"LedgerEntryType": "AccountRoot"`. The change in the `Balance` field in `PreviousFields` and `FinalFields` reflects the unspent XDV being returned to the payer.
 
 Those fields indicate that the payment channel is closed.
 
 
 ## Conclusion
 
-This concludes the tutorial of Payment Channel usage. Ripple encourages users to find unique and interesting use cases to take full advantage of the speed and convenience of payment channels.
+This concludes the tutorial of Payment Channel usage. Divvy encourages users to find unique and interesting use cases to take full advantage of the speed and convenience of payment channels.
 
 
 
 <!--{# common link defs #}-->
-{% include '_snippets/rippled-api-links.md' %}			
+{% include '_snippets/divvyd-api-links.md' %}			
 {% include '_snippets/tx-type-links.md' %}			
-{% include '_snippets/rippled_versions.md' %}
+{% include '_snippets/divvyd_versions.md' %}

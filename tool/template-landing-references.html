@@ -9,10 +9,10 @@
   </section>
 
   <section class="container-fluid bg-light p-3 px-sm-4 pb-sm-4">
-    <h2><a href="rippled-api.html">rippled API Reference</a></h2>
-    <p class="blurb">Use the <code>rippled</code> API to communicate with a <code>rippled</code> server, the core peer-to-peer server that manages the XRP Ledger.</p>
+    <h2><a href="divvyd-api.html">divvyd API Reference</a></h2>
+    <p class="blurb">Use the <code>divvyd</code> API to communicate with a <code>divvyd</code> server, the core peer-to-peer server that manages the XDV Ledger.</p>
       <div class="card-deck pt-3 pt-sm-4">
-        {% for page in pages|selectattr("supercategory", "equalto", "rippled API")|list %}
+        {% for page in pages|selectattr("supercategory", "equalto", "divvyd API")|list %}
         {% if loop.index != 1 and page == pages|selectattr("category", "equalto", page.category)|first %}
           <div class="card">
             <div class="card-header bg-dark">
@@ -42,7 +42,7 @@
           </div><!--/.card-->
 
           {# go to new row after admin methods #}
-          {% if page.html == "admin-rippled-methods.html" %}
+          {% if page.html == "admin-divvyd-methods.html" %}
       </div><!--/.card-deck-->
       <div class="card-deck pt-3 pt-sm-4">
           {% endif %}
@@ -55,11 +55,11 @@
 
   <section class="container-fluid bg-white p-3 px-sm-4 pb-sm-4">
 
-    <h2>Other XRP Ledger Interfaces</h2>
-    <p class="blurb">Here are a few other ways to interact with the XRP Ledger.</p>
+    <h2>Other XDV Ledger Interfaces</h2>
+    <p class="blurb">Here are a few other ways to interact with the XDV Ledger.</p>
     <div class="card-deck pt-3 pt-sm-4">
 
-      {% for page in pages|selectattr("doc_type", "equalto", "References")|selectattr("supercategory", "ne", "rippled API") %}
+      {% for page in pages|selectattr("doc_type", "equalto", "References")|selectattr("supercategory", "ne", "divvyd API") %}
         {% if loop.index != 1 and page == pages|selectattr("category", "equalto", page.category)|first %}
           <div class="card">
             <div class="card-header">

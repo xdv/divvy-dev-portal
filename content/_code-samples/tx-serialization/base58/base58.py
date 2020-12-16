@@ -1,11 +1,11 @@
 '''Base58 encoding
 
 Implementations of Base58 and Base58Check endcodings that are compatible
-with the XRP Ledger.
+with the XDV Ledger.
 '''
 
 # This This code is adapted from the module by David Keijser at
-# <https://github.com/keis/base58>. - rome@ripple.com
+# <https://github.com/keis/base58>. - rome@xdv.io
 # His notes are preserved below:
 
 # This module is based upon base58 snippets found scattered over many bitcoin
@@ -15,11 +15,11 @@ with the XRP Ledger.
 
 from hashlib import sha256
 
-__version__ = '1.0.3-xrp'
+__version__ = '1.0.3-xdv'
 
 # 58 character alphabet used
 # alphabet = b'123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz' # Bitcoin
-alphabet = b'rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz' # XRP Ledger
+alphabet = b'dpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcreCg65jkm8oFqi1tuvAxyz' # XDV Ledger
 
 
 if bytes == str:  # python2

@@ -1,4 +1,4 @@
-function rippleTestNetCredentials() {
+function divvyTestNetCredentials() {
 
   var credentials = $('#your-credentials');
   var address = $('#address');
@@ -16,7 +16,7 @@ function rippleTestNetCredentials() {
 
   //call the alt-net and get key generations
   $.ajax({
-    url: "https://faucet.altnet.rippletest.net/accounts",
+    url: "https://faucet.altnet.divvytest.net/accounts",
     type: 'POST',
     dataType: 'json',
     success: function(data) {
@@ -25,15 +25,15 @@ function rippleTestNetCredentials() {
       credentials.hide().html('<h2>Your Credentials</h2>').fadeIn('fast');
       address.hide().html('<h3>Address</h3> ' + data.account.address).fadeIn('fast');
       secret.hide().html('<h3>Secret</h3> ' + data.account.secret).fadeIn('fast');
-      balance.hide().html('<h3>Balance</h3> ' + Number(data.balance).toLocaleString('en') + ' XRP').fadeIn('fast');
+      balance.hide().html('<h3>Balance</h3> ' + Number(data.balance).toLocaleString('en') + ' XDV').fadeIn('fast');
     },
     error: function() {
       loader.hide();
-      alert("There was an error with the Ripple Test Net, please try again.");
+      alert("There was an error with the Divvy Test Net, please try again.");
     }
   });
 }
 
 $(document).ready(function() {
-  $('#generate-creds-button').click(rippleTestNetCredentials);
+  $('#generate-creds-button').click(divvyTestNetCredentials);
 });

@@ -1,4 +1,4 @@
-rippled sign s████████████████████████████ '{
+divvyd sign s████████████████████████████ '{
   "TransactionType": "CheckCreate",
   "Account": "rBXsgNkPcDN2runsvWmwxk3Lh97zdgo9za",
   "Destination": "rGPnRH1EBpHeTF2QG8DCAgM7z5pb75LAis",

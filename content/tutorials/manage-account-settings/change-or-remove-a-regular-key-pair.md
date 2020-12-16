@@ -1,6 +1,6 @@
 # Change or Remove a Regular Key Pair
 
-The XRP Ledger allows an account to authorize a secondary key pair, called a _regular key pair_, to sign future transactions.  If your account's regular key pair is compromised, or if you just want to periodically change the regular key pair as a security measure, use a [SetRegularKey transaction][] to remove or change the regular key pair for your account.
+The XDV Ledger allows an account to authorize a secondary key pair, called a _regular key pair_, to sign future transactions.  If your account's regular key pair is compromised, or if you just want to periodically change the regular key pair as a security measure, use a [SetRegularKey transaction][] to remove or change the regular key pair for your account.
 
 For more information about master and regular key pairs, see [Cryptographic Keys](cryptographic-keys.html).
 
@@ -72,7 +72,7 @@ An example of the request format:
 
 ```
 #Syntax: sign secret tx_json
-rippled sign snoPBrXtMeMyMHUVTgbuqAfg1SUTb '{"TransactionType": "SetRegularKey", "Account": "rUAi7pipxGpYfPNg3LtPcf2ApiS8aw9A93"}'
+divvyd sign snoPBrXtMeMyMHUVTgbuqAfg1SUTb '{"TransactionType": "SetRegularKey", "Account": "rUAi7pipxGpYfPNg3LtPcf2ApiS8aw9A93"}'
 ```
 
 <!-- MULTICODE_BLOCK_END -->
@@ -191,7 +191,7 @@ An example of the request format:
 
 ```
 #Syntax: submit tx_blob
-rippled submit 1200052280000000240000000268400000000000000A73210330E7FC9D56BB25D6893BA3F317AE5BCF33B3291BD63DB32654A313222F7FD02074473045022100CAB9A6F84026D57B05760D5E2395FB7BE86BF39F10DC6E2E69DC91238EE0970B022058EC36A8EF9EE65F5D0D8CAC4E88C8C19FEF39E40F53D4CCECBB59701D6D1E838114623B8DA4A0BFB3B61AB423391A182DC693DC159E
+divvyd submit 1200052280000000240000000268400000000000000A73210330E7FC9D56BB25D6893BA3F317AE5BCF33B3291BD63DB32654A313222F7FD02074473045022100CAB9A6F84026D57B05760D5E2395FB7BE86BF39F10DC6E2E69DC91238EE0970B022058EC36A8EF9EE65F5D0D8CAC4E88C8C19FEF39E40F53D4CCECBB59701D6D1E838114623B8DA4A0BFB3B61AB423391A182DC693DC159E
 ```
 
 <!-- MULTICODE_BLOCK_END -->
@@ -353,9 +353,9 @@ An example of a successful response:
 
 <!-- MULTICODE_BLOCK_END -->
 
-In some cases, you can even use the `SetRegularKey` transaction to send a [key reset transaction](transaction-cost.html#key-reset-transaction) without paying the [transaction cost](transaction-cost.html). With the enablement of the FeeEscalation amendment, `rippled` prioritizes key reset transactions above other transactions even though the nominal transaction cost of a key reset transaction is zero.
+In some cases, you can even use the `SetRegularKey` transaction to send a [key reset transaction](transaction-cost.html#key-reset-transaction) without paying the [transaction cost](transaction-cost.html). With the enablement of the FeeEscalation amendment, `divvyd` prioritizes key reset transactions above other transactions even though the nominal transaction cost of a key reset transaction is zero.
 
 <!--{# common link defs #}-->
-{% include '_snippets/rippled-api-links.md' %}			
+{% include '_snippets/divvyd-api-links.md' %}			
 {% include '_snippets/tx-type-links.md' %}			
-{% include '_snippets/rippled_versions.md' %}
+{% include '_snippets/divvyd_versions.md' %}

@@ -29,10 +29,10 @@ var urlParams;
   var info            = $('#info');
   var spinner = $(".loader");
 
-  var BASE_HOST_DEFAULT = 's2.ripple.com';
+  var BASE_HOST_DEFAULT = 's2.xdv.io';
   var BASE_PORT_DEFAULT = 443;
 
-  var remote = new ripple.Remote({
+  var remote = new divvy.Remote({
     trusted:        true,
     local_signing:  true,
     local_fee:      false,
@@ -46,7 +46,7 @@ var urlParams;
   });
 
   function new_remote(options) {
-    remote = new ripple.Remote(options);
+    remote = new divvy.Remote(options);
   }
 
   function set_online_state(state) {
@@ -265,7 +265,7 @@ var urlParams;
     ledger_index: void(0),
     taker: sample_address,
     taker_gets: {
-      currency: 'XRP'
+      currency: 'XDV'
     },
     taker_pays: {
       currency: 'USD',
@@ -290,7 +290,7 @@ var urlParams;
     _stream: true
   });
 
-  Request('ripple_path_find', {
+  Request('divvy_path_find', {
     ledger_hash : void(0),
     ledger_index : void(0),
     source_account : sample_address,
@@ -302,7 +302,7 @@ var urlParams;
         "issuer": sample_address_2
     },
     _description: 'Find a path between specified accounts once. For repeated usage, call <strong>path_find</strong> instead.',
-    _link: DOC_BASE + 'ripple_path_find.html'
+    _link: DOC_BASE + 'divvy_path_find.html'
   });
 
   Request('submit', {
@@ -477,7 +477,7 @@ var urlParams;
 
 //    var tx_json = selected_request.message.tx_json;
 
-//    if (ripple.UInt160.is_valid(tx_json.Account)) {
+//    if (divvy.UInt160.is_valid(tx_json.Account)) {
 //      selected_request.message.id = id._c;
 //      remote.request_account_info(tx_json.Account, function(err, info) {
 //        id.reset();
@@ -610,7 +610,7 @@ var urlParams;
 //
 //    var tx_json = message.tx_json;
 //
-//    if (!ripple.UInt160.is_valid(tx_json.Account)) {
+//    if (!divvy.UInt160.is_valid(tx_json.Account)) {
 //      alert('Account is invalid');
 //      return;
 //    }

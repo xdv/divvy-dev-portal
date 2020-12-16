@@ -153,7 +153,7 @@ lt=.</panel_attributes>
       <w>140</w>
       <h>120</h>
     </coordinates>
-    <panel_attributes>Same-currency paths can connect through rippling or through order books.
+    <panel_attributes>Same-currency paths can connect through divvying or through order books.
 bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
@@ -221,7 +221,7 @@ rvYAfWj...
 USD
 rvYAfWj...
 --
-XRP</panel_attributes>
+XDV</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -299,7 +299,7 @@ lt=.</panel_attributes>
     </coordinates>
     <panel_attributes>Order Book:
 --
-XRP
+XDV
 --
 USD
 rMwjYe...</panel_attributes>
@@ -401,7 +401,7 @@ rvYAfWj...
       <w>130</w>
       <h>100</h>
     </coordinates>
-    <panel_attributes>A simple path, which ripples through an issuer trusted by both parties
+    <panel_attributes>A simple path, which divvies through an issuer trusted by both parties
 bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
@@ -413,7 +413,7 @@ bg=yellow</panel_attributes>
       <w>140</w>
       <h>120</h>
     </coordinates>
-    <panel_attributes>XRP can bridge two order books
+    <panel_attributes>XDV can bridge two order books
 bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>

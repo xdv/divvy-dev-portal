@@ -2,11 +2,11 @@
 
 ***TODO: DRAFT***
 
-***TODO: Question: Added this concept section based on fantastic source material from Rome -- thought we should publish it. Useful? May be good to associate it with a flow diagram - like the one for address encoding: https://ripple.com/build/accounts/#address-encoding. Address both single and multi-sign flows.***
+***TODO: Question: Added this concept section based on fantastic source material from Rome -- thought we should publish it. Useful? May be good to associate it with a flow diagram - like the one for address encoding: https://xdv.io/build/accounts/#address-encoding. Address both single and multi-sign flows.***
 
-In the XRP Ledger, a digital signature proves that a transaction is authorized to do a specific set of actions. A digital signature is created based on a [key pair](cryptographic-keys.html) associated with the transaction's sending account.
+In the XDV Ledger, a digital signature proves that a transaction is authorized to do a specific set of actions. A digital signature is created based on a [key pair](cryptographic-keys.html) associated with the transaction's sending account.
 
-Here's an overview of some of the more common signature-related fields used in the XRP Ledger.
+Here's an overview of some of the more common signature-related fields used in the XDV Ledger.
 
 ***TODO: address from Ryan: Where would you see these fields? Either address in text -- or ensure that this is answered via the flow diagram discussed below.***
 
@@ -16,7 +16,7 @@ Here's an overview of some of the more common signature-related fields used in t
 
 The public key of the sender in hex format. Empty in the case of a multi-signed transaction.
 
-To verify whether a single-signed transaction is valid, a `rippled` server checks that all of the following are true:
+To verify whether a single-signed transaction is valid, a `divvyd` server checks that all of the following are true:
 
 1. This key hashes to an address that's authorized by the transaction's sender.
 

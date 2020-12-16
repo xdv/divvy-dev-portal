@@ -1,7 +1,7 @@
-ripple-dev-portal
+divvy-dev-portal
 =================
 
-The [Ripple Developer Portal](https://dev.ripple.com) is the authoritative source for Ripple documentation, including the `rippled` server, RippleAPI, the Ripple Data API, and other Ripple open-source software.
+The [Divvy Developer Portal](https://dev.xdv.io) is the authoritative source for Divvy documentation, including the `divvyd` server, DivvyAPI, the Divvy Data API, and other Divvy open-source software.
 
 
 Repository Layout
@@ -9,7 +9,7 @@ Repository Layout
 
 The HTML pages in this portal are generated from the markdown files in the [content/](content/) folder. Always edit the markdown files, not the HTML files. The [assets/](assets/) folder contains static files used by the site's templates. The [img](img/) folder contains images used in the docs.
 
-The HTML files are generated using Ripple's documentation tool, called [**Dactyl**](https://github.com/ripple/dactyl). After you've done the [Dactyl Setup](#dactyl-setup), you can build the docs from the project root directory:
+The HTML files are generated using Divvy's documentation tool, called [**Dactyl**](https://github.com/xdv/dactyl). After you've done the [Dactyl Setup](#dactyl-setup), you can build the docs from the project root directory:
 
 ```
 dactyl_build
@@ -33,7 +33,7 @@ Contributing
 
 The Developer Portal welcomes outside contributions, especially to the documentation contents. If you have any corrections, improvements, or expansions of the portal, please contribute pull requests to the **master** branch.
 
-Contributions become copyright Ripple and are provided under the MIT [LICENSE](LICENSE).
+Contributions become copyright Divvy and are provided under the MIT [LICENSE](LICENSE).
 
 
 Config Formatting

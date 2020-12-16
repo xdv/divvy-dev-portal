@@ -1,7 +1,7 @@
 'use strict';
 const assert = require('assert');
 const crypto = require('crypto');
-const R_B58_DICT = 'rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz';
+const R_B58_DICT = 'dpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcreCg65jkm8oFqi1tuvAxyz';
 const base58 = require('base-x')(R_B58_DICT);
 
 assert(crypto.getHashes().includes('sha256'));
@@ -27,7 +27,7 @@ const pubkey_outer_hash = crypto.createHash('ripemd160');
 pubkey_outer_hash.update(pubkey_inner_hash.digest());
 const account_id = pubkey_outer_hash.digest();
 
-// Prefix the Account ID with the type prefix for "Ripple Address", then
+// Prefix the Account ID with the type prefix for "Divvy Address", then
 //   calculate a checksum as the first 4 bytes of the SHA-256 of the SHA-256
 //   of the Account ID
 const address_type_prefix = Buffer.from([0x00]);

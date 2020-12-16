@@ -1,9 +1,9 @@
-#Ripple style guidelines
+#Divvy style guidelines
 cold wallet: issuing address
 hot wallet: operational address
 market maker: liquidity provider
 warm wallet: standby address
-ripple network: Ripple Consensus Ledger, Ripple peer-to-peer network
+divvy network: Divvy Consensus Ledger, Divvy peer-to-peer network
 
 #Plainlanguage.gov guidelines (adapted)
 and/or: __ or __ or both

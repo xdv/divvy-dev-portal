@@ -21,7 +21,7 @@ Figure out the values of the [CheckCash transaction][] fields. To cash a check f
 | `TransactionType` | String                    | The value `CheckCash` indicates this is a CheckCash transaction. |
 | `Account`         | String (Address)          | The address of the sender who is cashing the Check. (In other words, your address.) |
 | `CheckID`         | String                    | The ID of the Check object in the ledger to cash. You can get this information by looking up the metadata of the CheckCreate transaction using the [tx method][] or by looking for Checks using the [account_objects method][]. |
-| `Amount`          | String or Object (Amount) | The amount to redeem from the Check. For XRP, this must be a string specifying drops of XRP. For issued currencies, this is an object with `currency`, `issuer`, and `value` fields. The `currency` and `issuer` fields must match the corresponding fields in the Check object, and the `value` must be less than or equal to the amount in the Check object. (For currencies with transfer fees, you must cash the Check for less than its `SendMax` so the transfer fee can be paid by the `SendMax`.) If you cannot receive this much, cashing the Check fails, leaving the Check in the ledger so you can try again. For more information on specifying currency amounts, see [Specifying Currency Amounts][]. |
+| `Amount`          | String or Object (Amount) | The amount to redeem from the Check. For XDV, this must be a string specifying drops of XDV. For issued currencies, this is an object with `currency`, `issuer`, and `value` fields. The `currency` and `issuer` fields must match the corresponding fields in the Check object, and the `value` must be less than or equal to the amount in the Check object. (For currencies with transfer fees, you must cash the Check for less than its `SendMax` so the transfer fee can be paid by the `SendMax`.) If you cannot receive this much, cashing the Check fails, leaving the Check in the ledger so you can try again. For more information on specifying currency amounts, see [Specifying Currency Amounts][]. |
 
 
 ### Example CheckCash Preparation for an exact amount
@@ -42,7 +42,7 @@ The following examples show how to prepare a transaction to cash a Check for a f
 }
 ```
 
-*RippleAPI*
+*DivvyAPI*
 
 ```js
 {% include '_code-samples/checks/js/prepareCashExact.js' %}
@@ -148,6 +148,6 @@ If cashing the Check failed, the Check remains in the ledger so you can try cash
 <!-- MULTICODE_BLOCK_END -->
 
 <!--{# common links #}-->
-[RippleAPI]: rippleapi-reference.html
+[DivvyAPI]: divvyapi-reference.html
 {% include '_snippets/tx-type-links.md' %}
-{% include '_snippets/rippled-api-links.md' %}
+{% include '_snippets/divvyd-api-links.md' %}

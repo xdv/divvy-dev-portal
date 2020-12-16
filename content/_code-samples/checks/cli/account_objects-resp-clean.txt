@@ -28,7 +28,7 @@
                     "value": "1234567890123450e79"
                 },
                 "HighNode": "0000000000000000",
-                "LedgerEntryType": "RippleState",
+                "LedgerEntryType": "DivvyState",
                 "LowLimit": {
                     "currency": "BAR",
                     "issuer": "rBXsgNkPcDN2runsvWmwxk3Lh97zdgo9za",
@@ -67,7 +67,7 @@
                     "value": "0"
                 },
                 "HighNode": "0000000000000000",
-                "LedgerEntryType": "RippleState",
+                "LedgerEntryType": "DivvyState",
                 "LowLimit": {
                     "currency": "FOO",
                     "issuer": "rBXsgNkPcDN2runsvWmwxk3Lh97zdgo9za",

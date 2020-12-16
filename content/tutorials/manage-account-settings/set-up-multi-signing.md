@@ -1,36 +1,36 @@
 # Set Up Multi-Signing
 
-Multi-signing is one of three ways to authorize transactions for the XRP Ledger, alongside signing with [regular keys and master keys](cryptographic-keys.html). You can configure your address to allow any combination of the three methods to authorize transactions.
+Multi-signing is one of three ways to authorize transactions for the XDV Ledger, alongside signing with [regular keys and master keys](cryptographic-keys.html). You can configure your address to allow any combination of the three methods to authorize transactions.
 
 This tutorial demonstrates how to enable multi-signing for an address.
 
 
 ## Prerequisites
 
-- You must have a funded XRP Ledger address.
+- You must have a funded XDV Ledger address.
 
-- You must have access to a tool that can generate key pairs in the XRP Ledger format. If you are using a `rippled` server for this, you must have admin access because the [wallet_propose method][] is admin-only.
+- You must have access to a tool that can generate key pairs in the XDV Ledger format. If you are using a `divvyd` server for this, you must have admin access because the [wallet_propose method][] is admin-only.
 
-- Multi-signing must be available. Multi-signing has been enabled by an [**Amendment**](amendments.html) to the XRP Ledger Consensus Protocol since 2016-06-27.
+- Multi-signing must be available. Multi-signing has been enabled by an [**Amendment**](amendments.html) to the XDV Ledger Consensus Protocol since 2016-06-27.
 
 
 ## 1. Prepare a funded address
 
-You need an XRP Ledger address that can send transactions, and has enough XRP available. Multi-signing requires more than the usual amount of XRP for the [account reserve](reserves.html) and [transaction cost](transaction-cost.html), increasing with the number of signers and signatures you use.
+You need an XDV Ledger address that can send transactions, and has enough XDV available. Multi-signing requires more than the usual amount of XDV for the [account reserve](reserves.html) and [transaction cost](transaction-cost.html), increasing with the number of signers and signatures you use.
 
-If you started `rippled` in [stand-alone mode](rippled-server-modes.html#reasons-to-run-a-rippled-server-in-stand-alone-mode) with a new genesis ledger, you must:
+If you started `divvyd` in [stand-alone mode](divvyd-server-modes.html#reasons-to-run-a-divvyd-server-in-stand-alone-mode) with a new genesis ledger, you must:
 
 1. Generate keys for a new address, or reuse keys you already have.
-2. Submit a Payment transaction to fund the new address from the genesis account. (Send at least 100,000,000 [drops of XRP][].)
+2. Submit a Payment transaction to fund the new address from the genesis account. (Send at least 100,000,000 [drops of XDV][].)
 3. Manually close the ledger.
 
 
 ## 2. Prepare member keys
 
-You need several sets of XRP Ledger keys (address and secret) to include as members of your SignerList. These can be funded addresses that exist in the ledger, or you can generate new addresses using the [wallet_propose method][]. For example:
+You need several sets of XDV Ledger keys (address and secret) to include as members of your SignerList. These can be funded addresses that exist in the ledger, or you can generate new addresses using the [wallet_propose method][]. For example:
 
-    $ rippled wallet_propose
-    Loading: "/home/mduo13/.config/ripple/rippled.cfg"
+    $ divvyd wallet_propose
+    Loading: "/home/mduo13/.config/divvy/divvyd.cfg"
     Connecting to 127.0.0.1:5005
     {
         "result" : {
@@ -45,19 +45,19 @@ You need several sets of XRP Ledger keys (address and secret) to include as memb
         }
     }
 
-Take note of the `account_id` (XRP Ledger Address) and `master_seed` (secret key) for each one you generate.
+Take note of the `account_id` (XDV Ledger Address) and `master_seed` (secret key) for each one you generate.
 
 
 ## 3. Send SignerListSet transaction
 
-[Sign and submit](transaction-basics.html#signing-and-submitting-transactions) a [SignerListSet transaction][] in the normal (single-signature) way. This associates a SignerList with your XRP Ledger address, so that a combination of signatures from the members of that SignerList can multi-sign later transactions on your behalf.
+[Sign and submit](transaction-basics.html#signing-and-submitting-transactions) a [SignerListSet transaction][] in the normal (single-signature) way. This associates a SignerList with your XDV Ledger address, so that a combination of signatures from the members of that SignerList can multi-sign later transactions on your behalf.
 
 In this example, the SignerList has 3 members, with the weights and quorum set up such that multi-signed transactions need a signature from rsA2LpzuawewSBQXkiju3YQTMzW13pAAdW plus at least one signature from the other two members of the list.
 
 {% include '_snippets/secret-key-warning.md' %}
 <!--{#_ #}-->
 
-    $ rippled submit shqZZy2Rzs9ZqWTCQAdqc3bKgxnYq '{
+    $ divvyd submit shqZZy2Rzs9ZqWTCQAdqc3bKgxnYq '{
     >     "Flags": 0,
     >     "TransactionType": "SignerListSet",
     >     "Account": "rnBFvgZphmN39GWzUJeUitaP22Fr9be75H",
@@ -84,7 +84,7 @@ In this example, the SignerList has 3 members, with the weights and quorum set u
     >         }
     >     ]
     > }'
-    Loading: "/home/mduo13/.config/ripple/rippled.cfg"
+    Loading: "/home/mduo13/.config/divvy/divvyd.cfg"
     Connecting to 127.0.0.1:5005
     {
        "result" : {
@@ -129,17 +129,17 @@ In this example, the SignerList has 3 members, with the weights and quorum set u
 
 Make sure that the [Transaction Result](transaction-results.html) is [**tesSUCCESS**](tes-success.html). Otherwise, the transaction failed. If you have a problem in stand-alone mode or a non-production network, check that [multi-sign is enabled](start-a-new-genesis-ledger-in-stand-alone-mode.html#settings-in-new-genesis-ledgers).
 
-**Note:** The more members in the SignerList, the more XRP your address must have for purposes of the [owner reserve](reserves.html#owner-reserves). If your address does not have enough XRP, the transaction fails with [tecINSUFFICIENT_RESERVE](tec-codes.html). See also: [SignerLists and Reserves](signerlist.html#signerlists-and-reserves).
+**Note:** The more members in the SignerList, the more XDV your address must have for purposes of the [owner reserve](reserves.html#owner-reserves). If your address does not have enough XDV, the transaction fails with [tecINSUFFICIENT_RESERVE](tec-codes.html). See also: [SignerLists and Reserves](signerlist.html#signerlists-and-reserves).
 
 
 ## 4. Close the ledger
 
 On the live network, you can wait 4-7 seconds for the ledger to close automatically.
 
-If you're running `rippled` in stand-alone mode, use the [ledger_accept method][] to manually close the ledger:
+If you're running `divvyd` in stand-alone mode, use the [ledger_accept method][] to manually close the ledger:
 
-    $ rippled ledger_accept
-    Loading: "/home/mduo13/.config/ripple/rippled.cfg"
+    $ divvyd ledger_accept
+    Loading: "/home/mduo13/.config/divvy/divvyd.cfg"
     Connecting to 127.0.0.1:5005
     {
        "result" : {
@@ -155,8 +155,8 @@ Use the [account_objects method][] to confirm that the SignerList is associated 
 
 Normally, an account can own many objects of different types (such as trust lines and offers). If you funded a new address for this tutorial, the SignerList is the only object in the response.
 
-    $ rippled account_objects rEuLyBCvcw4CFmzv8RepSiAoNgF8tTGJQC validated
-    Loading: "/home/mduo13/.config/ripple/rippled.cfg"
+    $ divvyd account_objects rEuLyBCvcw4CFmzv8RepSiAoNgF8tTGJQC validated
+    Loading: "/home/mduo13/.config/divvy/divvyd.cfg"
     Connecting to 127.0.0.1:5005
     {
        "result" : {
@@ -210,6 +210,6 @@ At this point, your address is ready to [send a multi-signed transaction](send-a
 * Remove the address's regular key pair (if you previously set one) by sending a [SetRegularKey transaction][].
 
 <!--{# common link defs #}-->
-{% include '_snippets/rippled-api-links.md' %}			
+{% include '_snippets/divvyd-api-links.md' %}			
 {% include '_snippets/tx-type-links.md' %}			
-{% include '_snippets/rippled_versions.md' %}
+{% include '_snippets/divvyd_versions.md' %}

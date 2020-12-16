@@ -1,4 +1,4 @@
-#Ripple Style Guide suggestions
+#Divvy Style Guide suggestions
 consult: see
 # gateway: financial institution, issuer
 # gateways: financial institutions, issuers
@@ -6,7 +6,7 @@ wallet: address, client application, account
 ious: issuances
 will: (avoid future tense)
 
-#Plainlanguage.gov suggestions (adapted for Ripple)
+#Plainlanguage.gov suggestions (adapted for Divvy)
 accompany: go with
 accomplish: carry out, do
 accorded: given

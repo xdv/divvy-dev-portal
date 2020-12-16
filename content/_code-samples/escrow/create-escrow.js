@@ -1,5 +1,5 @@
 'use strict'
-const RippleAPI = require('ripple-lib').RippleAPI
+const DivvyAPI = require('divvy-lib').DivvyAPI
 const cc = require('five-bells-condition')
 const crypto = require('crypto')
 
@@ -20,7 +20,7 @@ const currentTime = new Date()
 const myEscrow = {
   "destination": "rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn", // Destination can be same as source
   "destinationTag": 2017,
-  "amount": "0.1113", //decimal XRP
+  "amount": "0.1113", //decimal XDV
   "condition": conditionHex,
   "allowExecuteAfter": currentTime.toISOString() // can be executed right away if the condition is met
 }
@@ -29,7 +29,7 @@ const myInstructions = {
 }
 
 // Connect and submit
-const api = new RippleAPI({server: 'wss://s2.ripple.com'})
+const api = new DivvyAPI({server: 'wss://s2.xdv.io'})
 
 function submitTransaction(lastClosedLedgerVersion, prepared, secret) {
   const signedData = api.sign(prepared.txJSON, secret)

@@ -1,1 +1,1 @@
-<!-- moved content to tutorials > manage the rippled server > capacity-planning.md -->
+<!-- moved content to tutorials > manage the divvyd server > capacity-planning.md -->

@@ -410,7 +410,7 @@ Direct trust line from sender to receiver</panel_attributes>
       <h>90</h>
     </coordinates>
     <panel_attributes>Same currency:
-Rippling through two issuers - unlikely to work
+Divvying through two issuers - unlikely to work
 bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
@@ -434,7 +434,7 @@ bg=yellow</panel_attributes>
       <h>70</h>
     </coordinates>
     <panel_attributes>Same currency:
-Rippling through one issuer</panel_attributes>
+Divvying through one issuer</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

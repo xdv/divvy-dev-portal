@@ -1,4 +1,4 @@
-rippled sign s████████████████████████████ '{
+divvyd sign s████████████████████████████ '{
   "Account": "rGPnRH1EBpHeTF2QG8DCAgM7z5pb75LAis",
   "TransactionType": "CheckCash",
   "DeliverMin": "95000000",

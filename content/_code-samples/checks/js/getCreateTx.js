@@ -1,10 +1,10 @@
 'use strict'
-const RippleAPI = require('ripple-lib').RippleAPI
-const decodeAddress = require('ripple-address-codec').decodeAddress;
+const DivvyAPI = require('divvy-lib').DivvyAPI
+const decodeAddress = require('divvy-address-codec').decodeAddress;
 const createHash = require('crypto').createHash;
 
 // This example connects to a public Test Net server
-const api = new RippleAPI({server: 'wss://s.altnet.rippletest.net:51233'})
+const api = new DivvyAPI({server: 'wss://s.altnet.divvytest.net:51233'})
 api.connect().then(() => {
   console.log('Connected')
 
@@ -14,7 +14,7 @@ api.connect().then(() => {
 }).then(response => {
   console.log("Final transaction result:", response)
 
-  // Re-calculate checkID to work around issue ripple-lib#876
+  // Re-calculate checkID to work around issue divvy-lib#876
   const checkIDhasher = createHash('sha512')
   checkIDhasher.update(Buffer.from('0043', 'hex'))
   checkIDhasher.update(new Buffer(decodeAddress(response.address)))

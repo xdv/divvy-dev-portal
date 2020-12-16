@@ -1,7 +1,7 @@
 //---------- List of requests ------------------------//
 // Must be loaded after apitool-rest.js //
 //var DOC_BASE = "reference-data-api.html";
-//var URL_BASE = "https://data-staging.ripple.com";
+//var URL_BASE = "https://data-staging.xdv.io";
 
 var DEFAULT_ADDRESS_1 = "rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn";
 var KRW_TRADER_ADDRESS = "rsyDrDi9Emy6vPU78qdxovmNpmj5Qh4NKw";
@@ -66,7 +66,7 @@ Request('Get Exchanges', {
     link: "#get-exchanges",
     params: {
         "{:base}": "USD+rMwjYedjc7qqtKYVLiAccJSmCwih4LnE2q",
-        "{:counter}": "XRP",
+        "{:counter}": "XDV",
         "{:query_params}": "descending=true&limit=3&result=tesSUCCESS&type=OfferCreate"
     }
 });
@@ -78,7 +78,7 @@ Request('Get Exchange Rates', {
     link: "#get-exchange-rates",
     params: {
         "{:base}": "USD+rMwjYedjc7qqtKYVLiAccJSmCwih4LnE2q",
-        "{:counter}": "XRP",
+        "{:counter}": "XDV",
         "{:query_params}": "date=2015-11-13T00:00:00Z"
     }
 });
@@ -89,7 +89,7 @@ Request('Normalize', {
     description: "Convert an amount from one currency and issuer to another, using the network exchange rates.",
     link: "#normalize",
     params: {
-        "{:query_params}": "amount=100&currency=XRP&exchange_currency=USD&exchange_issuer=rMwjYedjc7qqtKYVLiAccJSmCwih4LnE2q"
+        "{:query_params}": "amount=100&currency=XDV&exchange_currency=USD&exchange_issuer=rMwjYedjc7qqtKYVLiAccJSmCwih4LnE2q"
     }
 });
 
@@ -132,7 +132,7 @@ Request('Get Active Accounts', {
     link: "#get-active-accounts",
     params: {
         "{:base}": "USD+rMwjYedjc7qqtKYVLiAccJSmCwih4LnE2q",
-        "{:counter}": "XRP",
+        "{:counter}": "XDV",
         "{:query_params}": "period=7day"
     }
 });
@@ -168,11 +168,11 @@ Request('Get Issued Value', {
 });
 
 
-Request('Get XRP Distribution', {
+Request('Get XDV Distribution', {
     method: GET,
-    path: "/v2/network/xrp_distribution?{:query_params}",
-    description: "Get info on how much XRP is available and how much has been distributed outside of Ripple (the company).",
-    link: "#get-xrp-distribution",
+    path: "/v2/network/xdv_distribution?{:query_params}",
+    description: "Get info on how much XDV is available and how much has been distributed outside of Divvy (the company).",
+    link: "#get-xdv-distribution",
     params: {
         "{:query_params}": "limit=3&descending=true"
     }
@@ -300,7 +300,7 @@ Request('Get Account Exchanges - Single Currency Pair', {
     params: {
         "{:address}": KRW_TRADER_ADDRESS,
         "{:base}": "KRW+rUkMKjQitpgAM5WTGk79xpjT38DEJY283d",
-        "{:counter}": "XRP",
+        "{:counter}": "XDV",
         "{:query_params}": "start=2015-08-08T00:00:00Z&end=2015-08-31T00:00:00Z&limit=2"
     }
 });
@@ -400,7 +400,7 @@ Request('Get Ledger Validation', {
 Request('Get Topology', {
     method: GET,
     path: "/v2/network/topology?{:query_params}",
-    description: "Get topology of servers running the Ripple peer-to-peer network.",
+    description: "Get topology of servers running the Divvy peer-to-peer network.",
     link: "#get-topology",
     params: {
         "{:query_params}": "verbose=true"
@@ -410,7 +410,7 @@ Request('Get Topology', {
 Request('Get Topology Nodes', {
     method: GET,
     path: "/v2/network/topology/nodes?{:query_params}",
-    description: "Get data on servers running the Ripple peer-to-peer network.",
+    description: "Get data on servers running the Divvy peer-to-peer network.",
     link: "#get-topology-nodes",
     params: {
         "{:query_params}": "verbose=true"
@@ -420,7 +420,7 @@ Request('Get Topology Nodes', {
 Request('Get Topology Node', {
     method: GET,
     path: "/v2/network/topology/nodes/{:pubkey}",
-    description: "Get data on servers running the Ripple peer-to-peer network.",
+    description: "Get data on servers running the Divvy peer-to-peer network.",
     link: "#get-topology-nodes",
     params: {
         "{:pubkey}": "n94h5KNspwUGLaGcdHGxruYNmExWHjPkLcMvwsNrivR9czRp6Lor"
@@ -430,7 +430,7 @@ Request('Get Topology Node', {
 Request('Get Topology Links', {
     method: GET,
     path: "/v2/network/topology/links?{:query_params}",
-    description: "Get links in the topology of servers running the Ripple peer-to-peer network.",
+    description: "Get links in the topology of servers running the Divvy peer-to-peer network.",
     link: "#get-topology-links",
     params: {
         "{:query_params}": "verbose=true"

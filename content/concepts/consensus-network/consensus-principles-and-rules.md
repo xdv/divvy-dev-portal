@@ -1,16 +1,16 @@
 # Consensus Principles and Rules
 
-The XRP Ledger is a universal payment system enabling users to transfer funds across national boundaries as seamlessly as sending an email. Like other peer-to-peer payment networks such as Bitcoin, the XRP Ledger enables peer-to-peer transaction settlement across a decentralized network of computers. Unlike other digital currency protocols, the XRP Ledger allows users to denominate their transactions with any currency they prefer, including fiat currencies, digital currencies and other forms of value, in addition to XRP (the native asset of the XRP Ledger).
+The XDV Ledger is a universal payment system enabling users to transfer funds across national boundaries as seamlessly as sending an email. Like other peer-to-peer payment networks such as Bitcoin, the XDV Ledger enables peer-to-peer transaction settlement across a decentralized network of computers. Unlike other digital currency protocols, the XDV Ledger allows users to denominate their transactions with any currency they prefer, including fiat currencies, digital currencies and other forms of value, in addition to XDV (the native asset of the XDV Ledger).
 
-The XRP Ledger's technology enables near real-time settlement (three to six seconds) and contains a decentralized exchange, where payments automatically use the cheapest currency trade orders available to bridge currencies.
+The XDV Ledger's technology enables near real-time settlement (three to six seconds) and contains a decentralized exchange, where payments automatically use the cheapest currency trade orders available to bridge currencies.
 
 # Background
 
 ## Mechanics
 
-At the core, the XRP Ledger is a shared database that records information such as accounts, balances, and offers to trade assets. Signed instructions called "transactions" cause changes such as creating accounts, making payments, and trading assets.
+At the core, the XDV Ledger is a shared database that records information such as accounts, balances, and offers to trade assets. Signed instructions called "transactions" cause changes such as creating accounts, making payments, and trading assets.
 
-As a cryptographic system, the owners of XRP Ledger accounts are identified by _cryptographic identities_, which correspond to public/private key pairs. Transactions are authorized by cryptographic signatures matching these identities. Every server processes every transaction according to the same deterministic, known rules. Ultimately, the goal is for every server in the network to have a complete copy of the exact same ledger state, without needing a single central authority to arbitrate transactions.
+As a cryptographic system, the owners of XDV Ledger accounts are identified by _cryptographic identities_, which correspond to public/private key pairs. Transactions are authorized by cryptographic signatures matching these identities. Every server processes every transaction according to the same deterministic, known rules. Ultimately, the goal is for every server in the network to have a complete copy of the exact same ledger state, without needing a single central authority to arbitrate transactions.
 
 
 ## The Double Spend Problem
@@ -23,7 +23,7 @@ If Alice can send the "same" $10 to both Charlie and Bob, the payment system cea
 
 Conventionally, payment systems solve the double spend problem by having a central authority track and approve transactions. For example, a bank decides to clear a check based on the issuer's available balance, of which the bank is the sole custodian. In such a system, all participants follow the central authority's decisions.
 
-Distributed ledger technologies, like the XRP Ledger, have no central authority. They must solve the double spend problem in some other way.
+Distributed ledger technologies, like the XDV Ledger, have no central authority. They must solve the double spend problem in some other way.
 
 
 # How Consensus Works
@@ -38,9 +38,9 @@ We can also order transactions by deterministic rules. Because transactions are 
 
 This would be enough to solve the double spend problem without a central authority, but it would require us to have every transaction that would ever occur (so that we could sort them) before we could be certain of the results of any transaction. Obviously, this is impractical. <!-- STYLE_OVERRIDE: obviously -->
 
-If we could collect transactions into groups and agree on those groupings, we could sort the transactions within that group. As long as every participant agrees on which transactions are to be processed as a unit, they can use deterministic rules to solve the double spend problem without any need for a central authority. The participants each sort the transactions and apply them in a deterministic way following the known rules. The XRP Ledger solves the double-spend problem in exactly this way.
+If we could collect transactions into groups and agree on those groupings, we could sort the transactions within that group. As long as every participant agrees on which transactions are to be processed as a unit, they can use deterministic rules to solve the double spend problem without any need for a central authority. The participants each sort the transactions and apply them in a deterministic way following the known rules. The XDV Ledger solves the double-spend problem in exactly this way.
 
-The XRP Ledger allows multiple conflicting transactions to be in the agreed group. The group of transactions is executed according to deterministic rules, so whichever transaction comes first according to the sorting rules succeeds and whichever conflicting transaction comes second fails.
+The XDV Ledger allows multiple conflicting transactions to be in the agreed group. The group of transactions is executed according to deterministic rules, so whichever transaction comes first according to the sorting rules succeeds and whichever conflicting transaction comes second fails.
 
 ## Consensus Rules
 
@@ -75,7 +75,7 @@ Imagine a group of people in a room trying to agree which door they should use t
 
 The probability of this kind of failure can be made very low, but it cannot be reduced to zero. The engineering tradeoffs are such that driving this probability down below about one in a thousand makes consensus significantly slower, and less able to tolerate network and endpoint failures.
 
-## How the XRP Ledger Handles Consensus Failure
+## How the XDV Ledger Handles Consensus Failure
 
 After a consensus round completes, each participant applies the set of transactions that they believe were agreed to. This results in constructing what they believe the next state of the ledger should be.
 
@@ -99,6 +99,6 @@ On rare occasions, the network as a whole fails to make forward progress for a f
 
 One form of reliability is the ability of a system to provide results even under conditions where some components have failed, some participants are malicious, and so on. While this is important, there is another form of reliability that is much more important in cryptographic payment systems — the ability of a system to produce results that can be relied upon. That is, when a system reports a result to us as reliable, we should be able to rely on that result.
 
-Real-world systems, however, face operational conditions in which both kinds of reliability can be compromised. These include hardware failures, communication failures, and even dishonest participants. Part of the XRP Ledger's design philosophy is to detect conditions where the reliability of results are impaired and report them, rather than providing results that must not be relied on.
+Real-world systems, however, face operational conditions in which both kinds of reliability can be compromised. These include hardware failures, communication failures, and even dishonest participants. Part of the XDV Ledger's design philosophy is to detect conditions where the reliability of results are impaired and report them, rather than providing results that must not be relied on.
 
-The XRP Ledger's consensus algorithm provides a robust alternative to proof of work systems, without consuming computational resources needlessly. Byzantine failures are possible, and do happen, but the consequence is only minor delays. In all cases, the XRP Ledger's consensus algorithm reports results as reliable only when they in fact are.
+The XDV Ledger's consensus algorithm provides a robust alternative to proof of work systems, without consuming computational resources needlessly. Byzantine failures are possible, and do happen, but the consequence is only minor delays. In all cases, the XDV Ledger's consensus algorithm reports results as reliable only when they in fact are.

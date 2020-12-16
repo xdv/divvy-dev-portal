@@ -205,15 +205,15 @@ th {
 }
 
 /* Footer ------------------------------------------------------------------- */
-.ripple-footer {
+.divvy-footer {
   z-index: 2;
   color: #999999;
   font-size: 14px;
-  background: #28282a url(../img/ripple_footer_v2.jpg) repeat-x center center;
+  background: #28282a url(../img/divvy_footer_v2.jpg) repeat-x center center;
   background-position-y: -60px;
 }
 
-.ripple-footer a {
+.divvy-footer a {
   color: #999999;
   -o-transition: .5s;
   -ms-transition: .5s;
@@ -222,22 +222,22 @@ th {
   transition: .5s;
   font-weight: 500;
 }
-.ripple-footer a:hover {
+.divvy-footer a:hover {
   text-decoration: underline;
   color: white;
 }
 
-.ripple-footer hr {
+.divvy-footer hr {
   border-top: 1px solid #999999;
 }
 
-.ripple-footer h5 a {
+.divvy-footer h5 a {
   color: #ffffff;
   letter-spacing: .04em;
   text-decoration: none;
   padding-bottom: 0.5rem;
 }
-.ripple-footer h5 a:hover {
+.divvy-footer h5 a:hover {
   text-decoration: underline;
 }
 .absolute_bottom_footer span {
@@ -687,11 +687,11 @@ a.current {
     content: "+";
 }
 
-.xrp-ledger-dev-portal.sidebar-primary .sidebar {
+.xdv-ledger-dev-portal.sidebar-primary .sidebar {
   padding-right: 0;
   padding-left: 0;
 }
-.xrp-ledger-dev-portal.sidebar-primary .main {
+.xdv-ledger-dev-portal.sidebar-primary .main {
   z-index: 5;
   border-left: 1px solid #C9CDD1;
   padding-left: 40px;
@@ -912,17 +912,17 @@ a.current {
   margin-right: auto;
 }
 
-#xrp_ledger_intro a:hover {
+#xdv_ledger_intro a:hover {
   text-decoration: none;
 }
 
-#xrp_ledger_intro .card-footer {
+#xdv_ledger_intro .card-footer {
   border-width: 0;
   border-radius: 0;
   background: none;
 }
 
-#xrp_ledger_intro .card-body {
+#xdv_ledger_intro .card-body {
   padding: 1px;
 }
 

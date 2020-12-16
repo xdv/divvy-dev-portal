@@ -1,8 +1,8 @@
 'use strict'
-const RippleAPI = require('ripple-lib').RippleAPI
+const DivvyAPI = require('divvy-lib').DivvyAPI
 
 // This example connects to a public Test Net server
-const api = new RippleAPI({server: 'wss://s.altnet.rippletest.net:51233'})
+const api = new DivvyAPI({server: 'wss://s.altnet.divvytest.net:51233'})
 api.connect().then(() => {
   console.log('Connected')
 
@@ -16,8 +16,8 @@ api.connect().then(() => {
   return api.prepareCheckCreate(sender, {
     "destination": receiver,
     "sendMax": {
-      "currency": "XRP",
-      "value": "100" // RippleAPI uses decimal XRP, not integer drops
+      "currency": "XDV",
+      "value": "100" // DivvyAPI uses decimal XDV, not integer drops
     },
     "invoiceID": "46060241FABCF692D4D934BA2A6C4427CD4279083E38C77CBE642243E43BE291"
   }, options)

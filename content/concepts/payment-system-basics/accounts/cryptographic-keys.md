@@ -1,10 +1,10 @@
 # Cryptographic Keys
 
-In the XRP Ledger, a digital signature proves that a transaction is authorized to do a specific set of actions. Only signed transactions can be submitted to the network and included in a validated ledger. <!-- STYLE_OVERRIDE: is authorized to -->
+In the XDV Ledger, a digital signature proves that a transaction is authorized to do a specific set of actions. Only signed transactions can be submitted to the network and included in a validated ledger. <!-- STYLE_OVERRIDE: is authorized to -->
 
-Every digital signature is based on a cryptographic key pair associated with the transaction's sending account. A key pair may be generated using any of the XRP Ledger's supported [cryptographic signing algorithms](#signing-algorithms). A key pair can be used as [master key pair](#master-key-pair), [regular key pair](#regular-key-pair) or a member of a [signer list](multi-signing.html), regardless of what algorithm was used to generate it.
+Every digital signature is based on a cryptographic key pair associated with the transaction's sending account. A key pair may be generated using any of the XDV Ledger's supported [cryptographic signing algorithms](#signing-algorithms). A key pair can be used as [master key pair](#master-key-pair), [regular key pair](#regular-key-pair) or a member of a [signer list](multi-signing.html), regardless of what algorithm was used to generate it.
 
-**Warning:** It is important to maintain proper security over your private keys. Digital signatures are the only way of verifying to the XRP Ledger that you are authorized to send a transaction, and there is no privileged administrator who can undo or reverse any transaction that has been applied to the ledger. If someone else knows the private key of your XRP Ledger account, that person can create digital signatures to authorize any transaction the same as you could.
+**Warning:** It is important to maintain proper security over your private keys. Digital signatures are the only way of verifying to the XDV Ledger that you are authorized to send a transaction, and there is no privileged administrator who can undo or reverse any transaction that has been applied to the ledger. If someone else knows the private key of your XDV Ledger account, that person can create digital signatures to authorize any transaction the same as you could.
 
 ## Generating Keys
 
@@ -38,11 +38,11 @@ The `public_key` and `public_key_hex` are the public key in various formats, wit
 
 **account_id**
 
-The `account_id` is [derived from the public key](accounts.html#address-encoding) and designates the *potential* for an account to be created in the XRP Ledger. It is important to know that while an `account_id` exists, no actual account exists in the XRP Ledger until the `account_id` receives its first XRP payment. In addition, the `account_id` can't send any transactions until after it's received a transaction that funds and creates the account.
+The `account_id` is [derived from the public key](accounts.html#address-encoding) and designates the *potential* for an account to be created in the XDV Ledger. It is important to know that while an `account_id` exists, no actual account exists in the XDV Ledger until the `account_id` receives its first XDV payment. In addition, the `account_id` can't send any transactions until after it's received a transaction that funds and creates the account.
 
 The `account_id` (without a funded account) can, however, be used as a [regular key](#regular-key-pair) or a [member of a signer list](multi-signing.html) to authorize transactions for another account that does exist.
 
-To create a funded account stored in the ledger, the `account_id` must [receive a `Payment` transaction](payment.html#creating-accounts) that provides enough XRP to meet the [reserve requirement](reserves.html).
+To create a funded account stored in the ledger, the `account_id` must [receive a `Payment` transaction](payment.html#creating-accounts) that provides enough XDV to meet the [reserve requirement](reserves.html).
 
 For more information about the `wallet_propose` response, see [`wallet_propose`](wallet_propose.html).
 
@@ -76,7 +76,7 @@ Keeping your master key pair offline means not putting your master private key s
 
 ## Regular Key Pair
 
-The XRP Ledger allows an account to authorize a secondary key pair, called a _regular key pair_, to sign future transactions, while keeping your master key pair offline. If the private key of a regular key pair is compromised, you can remove or replace it without changing the rest of your account and re-establishing its relationships to other accounts. You can also rotate a regular key pair proactively. (Neither of those things is possible for the master key pair of an account, which is intrinsically linked to the account's address.)
+The XDV Ledger allows an account to authorize a secondary key pair, called a _regular key pair_, to sign future transactions, while keeping your master key pair offline. If the private key of a regular key pair is compromised, you can remove or replace it without changing the rest of your account and re-establishing its relationships to other accounts. You can also rotate a regular key pair proactively. (Neither of those things is possible for the master key pair of an account, which is intrinsically linked to the account's address.)
 
 You generate a key pair to use as a regular key pair using the [`wallet_propose`](wallet_propose.html) method. However, unlike with a [master key pair](#master-key-pair), which is generated alongside and intrinsically related to the `account_id` of an account it supports, you must explicitly create the relationship between a regular key pair and the account you want it to sign transactions for. You use the [`SetRegularKey`](setregularkey.html) method to assign a regular key pair to an account.
 
@@ -98,24 +98,24 @@ For a tutorial on changing or removing a regular key pair, see [Assign a Regular
 
 Cryptographic key pairs are always tied to a specific signing algorithm, which defines the mathematical relationships between the private key and the public key. Cryptographic signing algorithms have the property that, given the current state of cryptographic techniques, it is "easy" to use a private key to calculate a matching public key, but it is effectively impossible to compute a matching private key by starting from a public key.
 
-The XRP Ledger supports the following cryptographic signing algorithms:
+The XDV Ledger supports the following cryptographic signing algorithms:
 
 | Key Type    | Algorithm | Description |
 |-------------|-----------|---|
-| `secp256k1` | [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm) using the elliptic curve [secp256k1](https://en.bitcoin.it/wiki/Secp256k1) | This is the scheme used in Bitcoin. The XRP Ledger uses these key types by default. |
-| `ed25519` | [EdDSA](https://tools.ietf.org/html/rfc8032) using the elliptic curve [Ed25519](https://ed25519.cr.yp.to/) | This is a newer algorithm which has better performance and other convenient properties. Since Ed25519 public keys are one byte shorter than secp256k1 keys, `rippled` prefixes Ed25519 public keys with the byte `0xED` so both types of public key are 33 bytes. |
+| `secp256k1` | [ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm) using the elliptic curve [secp256k1](https://en.bitcoin.it/wiki/Secp256k1) | This is the scheme used in Bitcoin. The XDV Ledger uses these key types by default. |
+| `ed25519` | [EdDSA](https://tools.ietf.org/html/rfc8032) using the elliptic curve [Ed25519](https://ed25519.cr.yp.to/) | This is a newer algorithm which has better performance and other convenient properties. Since Ed25519 public keys are one byte shorter than secp256k1 keys, `divvyd` prefixes Ed25519 public keys with the byte `0xED` so both types of public key are 33 bytes. |
 
 When you generate a key pair with the [wallet_propose method][], you can specify the `key_type` to choose which cryptographic signing algorithm to use to derive the keys. If you generated a key type other than the default, you must also specify the `key_type` when signing transactions.
 
-The supported types of key pairs can be used interchangeably throughout the XRP Ledger as master key pairs, regular key pairs, and members of signer lists. The process of [deriving an address](accounts.html#address-encoding) is the same for secp256k1 and Ed25519 key pairs.
+The supported types of key pairs can be used interchangeably throughout the XDV Ledger as master key pairs, regular key pairs, and members of signer lists. The process of [deriving an address](accounts.html#address-encoding) is the same for secp256k1 and Ed25519 key pairs.
 
 **Note:** Currently, you cannot sign [payment channel claims](use-payment-channels.html) with Ed25519 keys. This is a bug.
 
 ### Future Algorithms
 
-In the future, Ripple expects to add new cryptographic signing algorithms to the XRP Ledger to keep up with developments in cryptography. For example, if it seems that quantum computers using [Shor's algorithm](https://en.wikipedia.org/wiki/Shor's_algorithm) (or something similar) will soon be practical enough to break elliptic curve cryptography, Ripple can add a cryptographic signing algorithm that isn't easily broken. As of early 2018, such "quantum-resistant" signing algorithms are relatively impractical and quantum computers are even more impractical, so Ripple has no immediate plans to add any specific algorithms.
+In the future, Divvy expects to add new cryptographic signing algorithms to the XDV Ledger to keep up with developments in cryptography. For example, if it seems that quantum computers using [Shor's algorithm](https://en.wikipedia.org/wiki/Shor's_algorithm) (or something similar) will soon be practical enough to break elliptic curve cryptography, Divvy can add a cryptographic signing algorithm that isn't easily broken. As of early 2018, such "quantum-resistant" signing algorithms are relatively impractical and quantum computers are even more impractical, so Divvy has no immediate plans to add any specific algorithms.
 
 <!--{# common link defs #}-->
-{% include '_snippets/rippled-api-links.md' %}			
+{% include '_snippets/divvyd-api-links.md' %}			
 {% include '_snippets/tx-type-links.md' %}			
-{% include '_snippets/rippled_versions.md' %}
+{% include '_snippets/divvyd_versions.md' %}

@@ -10,13 +10,13 @@ To get a list of all incoming and outgoing Checks for an account, use the `accou
 
 **Note:** The commandline interface to the `account_objects` command does not accept the `type` field. You can use the [json method][] to send the JSON-RPC format request on the commandline instead.
 
-**Note:** RippleAPI does not have built-in support for the `account_objects` method. You can make a raw request in the WebSocket format using the `api.connection.request(websocket_request_json)` method.
+**Note:** DivvyAPI does not have built-in support for the `account_objects` method. You can make a raw request in the WebSocket format using the `api.connection.request(websocket_request_json)` method.
 
 ### Example Request
 
 <!-- MULTICODE_BLOCK_START -->
 
-*RippleAPI*
+*DivvyAPI*
 
 ```js
 {% include '_code-samples/checks/js/getChecks.js' %}
@@ -34,7 +34,7 @@ To get a list of all incoming and outgoing Checks for an account, use the `accou
 
 <!-- MULTICODE_BLOCK_START -->
 
-*RippleAPI*
+*DivvyAPI*
 
 ```
 {% include '_code-samples/checks/js/get-checks-resp.txt' %}
@@ -74,6 +74,6 @@ for (i=0; i < account_objects_response.account_objects.length; i++) {
 ```
 
 <!--{# common links #}-->
-[RippleAPI]: rippleapi-reference.html
+[DivvyAPI]: divvyapi-reference.html
 {% include '_snippets/tx-type-links.md' %}
-{% include '_snippets/rippled-api-links.md' %}
+{% include '_snippets/divvyd-api-links.md' %}

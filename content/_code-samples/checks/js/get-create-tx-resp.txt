@@ -5,7 +5,7 @@ Final transaction result: { type: 'checkCreate',
   id: 'C0B27D20669BAB837B3CDF4B8148B988F17CE1EF8EDF48C806AE9BF69E16F441',
   specification:
    { destination: 'rGPnRH1EBpHeTF2QG8DCAgM7z5pb75LAis',
-     sendMax: { currency: 'XRP', value: '100' } },
+     sendMax: { currency: 'XDV', value: '100' } },
   outcome:
    { result: 'tesSUCCESS',
      timestamp: '2018-03-27T20:47:40.000Z',

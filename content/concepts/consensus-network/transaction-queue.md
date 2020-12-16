@@ -1,6 +1,6 @@
 # Transaction Queue
 
-The `rippled` server uses a transaction queue to help enforce the [open ledger cost](transaction-cost.html#open-ledger-cost). The open ledger cost sets a target number of transactions in a given ledger, and escalates the required transaction cost very quickly when the open ledger surpasses this size. Rather than discarding transactions that cannot pay the escalated transaction cost, `rippled` tries to put them in a transaction queue, which it uses to build the next ledger.
+The `divvyd` server uses a transaction queue to help enforce the [open ledger cost](transaction-cost.html#open-ledger-cost). The open ledger cost sets a target number of transactions in a given ledger, and escalates the required transaction cost very quickly when the open ledger surpasses this size. Rather than discarding transactions that cannot pay the escalated transaction cost, `divvyd` tries to put them in a transaction queue, which it uses to build the next ledger.
 
 ## Transaction Queue and Consensus
 
@@ -26,19 +26,19 @@ The transaction queue plays an important role in selecting the transactions that
 
 ## Queuing Restrictions
 
-The `rippled` server uses a variety of heuristics to estimate which transactions are "likely to be included in a ledger." The current implementation uses the following rules to decide which transactions to queue:
+The `divvyd` server uses a variety of heuristics to estimate which transactions are "likely to be included in a ledger." The current implementation uses the following rules to decide which transactions to queue:
 
 * Transactions must be properly-formed and [authorized](transaction-basics.html#authorizing-transactions) with valid signatures.
 * Transactions with an `AccountTxnID` field cannot be queued.
-* A single sending address can have at most 10 transactions queued at the same time. In order for a transaction to be queued, the sender must have enough XRP to pay all the XRP costs of all the sender's queued transactions including both the `Fee` fields and the sum of the XRP that each transaction could send. [New in: rippled 0.32.0][]
-* If a transaction affects how the sending address authorizes transactions, no other transactions from the same address can be queued behind it. [New in: rippled 0.32.0][]
+* A single sending address can have at most 10 transactions queued at the same time. In order for a transaction to be queued, the sender must have enough XDV to pay all the XDV costs of all the sender's queued transactions including both the `Fee` fields and the sum of the XDV that each transaction could send. [New in: divvyd 0.32.0][]
+* If a transaction affects how the sending address authorizes transactions, no other transactions from the same address can be queued behind it. [New in: divvyd 0.32.0][]
 * If a transaction includes a `LastLedgerSequence` field, the value of that field must be at least **the current ledger index + 2**.
 
 ### Fee Averaging
 
-[New in: rippled 0.33.0][]
+[New in: divvyd 0.33.0][]
 
-If a sending address has one or more transactions queued, that sender can "push" the existing queued transactions into the open ledger by submitting a new transaction with a high enough transaction cost to pay for all of them. Specifically, the new transaction must pay a high enough transaction cost to cover the [open ledger cost](transaction-cost.html#open-ledger-cost) of itself and each other transaction from the same sender before it in the queue. (Keep in mind that the open ledger cost increases exponentially each time a transaction pays it.) The transactions must still follow the other [queuing restrictions](#queuing-restrictions) and the sending address must have enough XRP to pay the transaction costs of all the queued transactions.
+If a sending address has one or more transactions queued, that sender can "push" the existing queued transactions into the open ledger by submitting a new transaction with a high enough transaction cost to pay for all of them. Specifically, the new transaction must pay a high enough transaction cost to cover the [open ledger cost](transaction-cost.html#open-ledger-cost) of itself and each other transaction from the same sender before it in the queue. (Keep in mind that the open ledger cost increases exponentially each time a transaction pays it.) The transactions must still follow the other [queuing restrictions](#queuing-restrictions) and the sending address must have enough XDV to pay the transaction costs of all the queued transactions.
 
 This feature helps you work around a particular situation. If you submitted one or more transactions with a low cost that were queued, you cannot send new transactions from the same address unless you do one of the following:
 
@@ -50,20 +50,20 @@ If none of the above occur, transactions can stay in the queue for a theoretical
 
 ## Order Within the Queue
 
-Within the transaction queue, transactions are ranked so that transactions paying a higher transaction cost come first. This ranking is not by the transactions' _absolute_ XRP cost, but by costs _relative to the [minimum cost for that type of transaction](transaction-cost.html#special-transaction-costs)_. Transactions that pay the same transaction cost are ranked in the order the server received them. Other factors may also affect the order of transactions in the queue; for example, transactions from the same sender are sorted by their `Sequence` numbers so that they are submitted in order.
+Within the transaction queue, transactions are ranked so that transactions paying a higher transaction cost come first. This ranking is not by the transactions' _absolute_ XDV cost, but by costs _relative to the [minimum cost for that type of transaction](transaction-cost.html#special-transaction-costs)_. Transactions that pay the same transaction cost are ranked in the order the server received them. Other factors may also affect the order of transactions in the queue; for example, transactions from the same sender are sorted by their `Sequence` numbers so that they are submitted in order.
 
 The precise order of transactions in the queue decides which transactions get added to the next in-progress ledger version in cases where there are more transactions in the queue than the expected size of the next ledger version. The order of the transactions **does not affect the order the transactions are executed within a validated ledger**. In each validated ledger version, the transaction set for that version executes in [canonical order](consensus.html#calculate-and-share-validations).
 
-**Note:** When `rippled` queues a transaction, the provisional [transaction response code](transaction-results.html) is `terQUEUED`. This means that the transaction is likely to succeed in a future ledger version. As with all provisional response codes, the outcome of the transaction is not final until the transaction is either included in a validated ledger, or [rendered permanently invalid](finality-of-results.html).
+**Note:** When `divvyd` queues a transaction, the provisional [transaction response code](transaction-results.html) is `terQUEUED`. This means that the transaction is likely to succeed in a future ledger version. As with all provisional response codes, the outcome of the transaction is not final until the transaction is either included in a validated ledger, or [rendered permanently invalid](finality-of-results.html).
 
 
 ## See Also
 
-- [Transaction Cost](transaction-cost.html) for information on why the transaction cost exists and how the XRP Ledger enforces it.
+- [Transaction Cost](transaction-cost.html) for information on why the transaction cost exists and how the XDV Ledger enforces it.
 - [Consensus](consensus.html) for a detailed description of how the consensus process approves transactions.
 
 
 <!--{# common link defs #}-->
-{% include '_snippets/rippled-api-links.md' %}			
+{% include '_snippets/divvyd-api-links.md' %}			
 {% include '_snippets/tx-type-links.md' %}			
-{% include '_snippets/rippled_versions.md' %}
+{% include '_snippets/divvyd_versions.md' %}

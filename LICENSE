@@ -1,10 +1,11 @@
-The Ripple Dev Portal and all its original contents are provided under the MIT License. Additional libraries and resources used by the Ripple Dev Portal are subject to their own licenses, as described below.
+The Divvy Dev Portal and all its original contents are provided under the MIT License. Additional libraries and resources used by the Divvy Dev Portal are subject to their own licenses, as described below.
 
 The MIT License (MIT)
 
-Ripple Dev Portal Copyright (c) 2014, 2015 Ripple Labs, Inc.
+Divvy Dev Portal Copyright (c) 2014, 2015 Ripple Labs, Inc.
 Flatdoc Copyright (c) 2013, 2014, Rico Sta. Cruz.
 jQuery Copyright (c) 2005, 2014 jQuery Foundation and other contributors, https://jquery.org/
+Copyright (c) The XDV Developers
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

@@ -78,5 +78,5 @@ _Websocket_
 
 
 {% include '_snippets/tx-type-links.md' %}
-{% include '_snippets/rippled_versions.md' %}
-{% include '_snippets/rippled-api-links.md' %}
+{% include '_snippets/divvyd_versions.md' %}
+{% include '_snippets/divvyd-api-links.md' %}

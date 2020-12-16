@@ -1,7 +1,7 @@
-const {RippleAPI} = require('ripple-lib');
+const {DivvyAPI} = require('divvy-lib');
 
-const api = new RippleAPI({
-  server: 'wss://s1.ripple.com' // Public rippled server
+const api = new DivvyAPI({
+  server: 'wss://s1.xdv.io' // Public divvyd server
 });
 api.on('error', (errorCode, errorMessage) => {
   console.log(errorCode + ': ' + errorMessage);

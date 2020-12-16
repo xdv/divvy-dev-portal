@@ -6,9 +6,9 @@ jQuery(function ($) {
       txCount = 0,
       currentTarget = null;
 
-  var remote = ripple.Remote.from_config({
+  var remote = divvy.Remote.from_config({
     "trace" : true,
-    "websocket_ip" : "s2.ripple.com",
+    "websocket_ip" : "s2.xdv.io",
     "websocket_port" : 443,
     "websocket_ssl" : true
   });
@@ -16,7 +16,7 @@ jQuery(function ($) {
 
   remote.once('connected', function () {
     var target = location.hash.slice(1);
-    if (ripple.UInt160.from_json(target).is_valid() ||
+    if (divvy.UInt160.from_json(target).is_valid() ||
         reTxId.exec(target) ||
         reLedgerSeq.exec(target)) {
       $('#target').val(target);
@@ -52,9 +52,9 @@ jQuery(function ($) {
 
     var locationWithoutHash = location.protocol+'//'+location.hostname+(location.port?":"+location.port:"")+location.pathname+(location.search?location.search:"");
     $("#permalink").attr("href", locationWithoutHash + "#" + target);
-    $("#graphlink").attr("href", "https://www.ripplecharts.com/#/graph/" + target);
+    $("#graphlink").attr("href", "https://charts.xdv.io/#/graph/" + target);
 
-    if (ripple.UInt160.from_json(target).is_valid()) {
+    if (divvy.UInt160.from_json(target).is_valid()) {
       // Account
       var account = target;
 
@@ -132,7 +132,7 @@ jQuery(function ($) {
     } else if (reTxId.exec(target)) {
       $("#result > .group-tx").show();
 
-      $("#datalink").attr("href", "https://ripple.com/client/#/tx/?id=" + target);
+      $("#datalink").attr("href", "https://xdv.io/client/#/tx/?id=" + target);
 
       // Transaction
       $("#progress .bar").css("width", "10%");

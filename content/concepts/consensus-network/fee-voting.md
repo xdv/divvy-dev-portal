@@ -1,18 +1,18 @@
 # Fee Voting
 
-Validators can vote for changes to basic [transaction cost](transaction-cost.html) as well as [reserve requirements](reserves.html). If the preferences in a validator's configuration are different than the network's current settings, the validator expresses its preferences to the network periodically. If a quorum of validators agrees on a change, they can apply a change that takes effect thereafter. Validators may do this for various reasons, especially to adjust to long-term changes in the value of XRP.
+Validators can vote for changes to basic [transaction cost](transaction-cost.html) as well as [reserve requirements](reserves.html). If the preferences in a validator's configuration are different than the network's current settings, the validator expresses its preferences to the network periodically. If a quorum of validators agrees on a change, they can apply a change that takes effect thereafter. Validators may do this for various reasons, especially to adjust to long-term changes in the value of XDV.
 
-Operators of [`rippled` validators](run-rippled-as-a-validator.html) can set their preferences for the transaction cost and reserve requirements in the `[voting]` stanza of the `rippled.cfg` file.
+Operators of [`divvyd` validators](run-divvyd-as-a-validator.html) can set their preferences for the transaction cost and reserve requirements in the `[voting]` stanza of the `divvyd.cfg` file.
 
-**Caution:** Insufficient requirements, if adopted by a consensus of trusted validators, could expose the XRP Ledger peer-to-peer network to denial-of-service attacks.
+**Caution:** Insufficient requirements, if adopted by a consensus of trusted validators, could expose the XDV Ledger peer-to-peer network to denial-of-service attacks.
 
 The parameters you can set are as follows:
 
 | Parameter | Description | Recommended Value |
 |-----------|-------------|-------------------|
-| `reference_fee` | Amount of XRP, in _drops_, that must be destroyed to send the reference transaction, the cheapest possible transaction. (1 XRP = 1 million drops.) The actual transaction cost is a multiple of this value, scaled dynamically based on the load of individual servers. | `10` (0.00001 XRP) |
-| `account_reserve` | Minimum amount of XRP, in _drops_, that an account must have on reserve. This is the smallest amount that can be sent to fund a new account in the ledger. | `20000000` (20 XRP) |
-| `owner_reserve` | How much more XRP, in _drops_, that an address must hold for _each_ object it owns in the ledger. | `5000000` (5 XRP) |
+| `reference_fee` | Amount of XDV, in _drops_, that must be destroyed to send the reference transaction, the cheapest possible transaction. (1 XDV = 1 million drops.) The actual transaction cost is a multiple of this value, scaled dynamically based on the load of individual servers. | `10` (0.00001 XDV) |
+| `account_reserve` | Minimum amount of XDV, in _drops_, that an account must have on reserve. This is the smallest amount that can be sent to fund a new account in the ledger. | `20000000` (20 XDV) |
+| `owner_reserve` | How much more XDV, in _drops_, that an address must hold for _each_ object it owns in the ledger. | `5000000` (5 XDV) |
 
 ## Voting Process
 
@@ -33,8 +33,8 @@ In short:
 
 The maximum possible values for the fees are limited by the internal data types stored in the [FeeSettings ledger object](feesettings.html). These values are as follows:
 
-| Parameter | Maximum Value (drops) | Maximum Value (XRP)
+| Parameter | Maximum Value (drops) | Maximum Value (XDV)
 |-----------|-----------------------|----|
-| `reference_fee` | 2**64 | (More XRP than has ever existed.) |
-| `account_reserve` | 2^32 drops | Approximately 4294 XRP |
-| `owner_reserve` | 2^32 drops | Approximately 4294 XRP |
+| `reference_fee` | 2**64 | (More XDV than has ever existed.) |
+| `account_reserve` | 2^32 drops | Approximately 4294 XDV |
+| `owner_reserve` | 2^32 drops | Approximately 4294 XDV |

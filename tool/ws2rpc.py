@@ -17,8 +17,8 @@ if sys.version_info[:2] <= (2,7):
 else:
     import http.client as httplib
 
-RIPPLED_RPC_HOST = "s1.ripple.com"
-RIPPLED_RPC_PORT = 51234
+DIVVYD_RPC_HOST = "s1.xdv.io"
+DIVVYD_RPC_PORT = 51234
 
 def ws2rpc(s):
     ws_j = json.loads(s)
@@ -66,7 +66,7 @@ def print_md_for_request(json_rpc_text):
 """ % json_rpc_text)
 
 def print_md_for_response(json_rpc_text):
-    header, response_body = do_JSONRPC(js, args.rippled_host, args.rippled_port)
+    header, response_body = do_JSONRPC(js, args.divvyd_host, args.divvyd_port)
 
     try:
         #parse & pretty-print response JSON if valid
@@ -86,12 +86,12 @@ def print_md_for_response(json_rpc_text):
 ```""" % (header, response_body) )
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Convert WebSocket examples to JSON-RPC with responses from the live rippled network")
+    parser = argparse.ArgumentParser(description="Convert WebSocket examples to JSON-RPC with responses from the live divvyd network")
     parser.add_argument("inputfile")
     parser.add_argument("--offline", action="store_true", help="don't connect to the network to generate responses", default=False)
     parser.add_argument("--json", "-j", action="store_true", help="assume input file is raw JSON in websocket format", default=False)
-    parser.add_argument("--rippled_host", help="hostname of a rippled server to use", type=str, default=RIPPLED_RPC_HOST)
-    parser.add_argument("--rippled_port", help="port number of a rippled server to use", type=int, default=RIPPLED_RPC_PORT)
+    parser.add_argument("--divvyd_host", help="hostname of a divvyd server to use", type=str, default=DIVVYD_RPC_HOST)
+    parser.add_argument("--divvyd_port", help="port number of a divvyd server to use", type=int, default=DIVVYD_RPC_PORT)
 
     args = parser.parse_args()
 

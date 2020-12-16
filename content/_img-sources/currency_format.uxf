@@ -87,7 +87,7 @@ style=wordwrap</panel_attributes>
       <w>270</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>"Not XRP" bit (0=XRP, 1=not XRP)
+    <panel_attributes>"Not XDV" bit (0=XDV, 1=not XDV)
 style=wordwrap</panel_attributes>
     <additional_attributes/>
   </element>

@@ -2,7 +2,7 @@
 
 <!--{# Note: the title in the first line of this file gets used to generate the top nav. #}-->
 
-Get the latest XRP Ledger news and release information.
+Get the latest XDV Ledger news and release information.
 
 <!--{# area will eventually include a Network Health page #}-->
 
@@ -10,15 +10,15 @@ Get the latest XRP Ledger news and release information.
 
 * **[Known Amendments](known-amendments.html)**
 
-      Amendments provide a way to introduce breaking changes to the decentralized XRP Ledger network without causing disruptions. Get the comprehensive list of [all known amendments](known-amendments.html) and their statuses on the production XRP Ledger.
+      Amendments provide a way to introduce breaking changes to the decentralized XDV Ledger network without causing disruptions. Get the comprehensive list of [all known amendments](known-amendments.html) and their statuses on the production XDV Ledger.
 
-* **<a href="https://ripple.com/category/dev-blog/" target="_blank">Ripple Dev Blog </a><i class="fa fa-external-link"></i><!--{#_ open link in new tab #}-->**
+* **<a href="https://xdv.io/category/dev-blog/" target="_blank">Divvy Dev Blog </a><i class="fa fa-external-link"></i><!--{#_ open link in new tab #}-->**
 
-      Visit the Dev Blog for the latest news and stories about the XRP Ledger and `rippled`.
+      Visit the Dev Blog for the latest news and stories about the XDV Ledger and `divvyd`.
 
-* **<a href="https://github.com/ripple" target="_blank">Ripple GitHub Organization </a><i class="fa fa-external-link"></i><!--{#_ open link in new tab #}-->**
+* **<a href="https://github.com/xdv" target="_blank">Divvy GitHub Organization </a><i class="fa fa-external-link"></i><!--{#_ open link in new tab #}-->**
 
-      Visit the Ripple GitHub Organization to access open-source projects, including `rippled`, `ripple-lib`, and `ripple-libpp`.
+      Visit the Divvy GitHub Organization to access open-source projects, including `divvyd`, `divvy-lib`, and `divvy-libpp`.
 
 * **<a href="https://interledger.org/" target="_blank">Interledger </a><i class="fa fa-external-link"></i><!--{#_ open link in new tab #}-->**
 

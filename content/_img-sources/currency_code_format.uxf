@@ -100,7 +100,7 @@ pseudo-ISO currency</panel_attributes>
       <h>40</h>
     </coordinates>
     <panel_attributes>3 chars of ASCII
-(can't be "XRP")</panel_attributes>
+(can't be "XDV")</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -111,7 +111,7 @@ pseudo-ISO currency</panel_attributes>
       <w>620</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>Special Case XRP Currency Code</panel_attributes>
+    <panel_attributes>Special Case XDV Currency Code</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

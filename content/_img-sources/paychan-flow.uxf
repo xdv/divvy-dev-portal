@@ -176,7 +176,7 @@ complete</panel_attributes>
 8. Payee: Redeem claim
 (PaymentChannelClaim
 transaction)
-Payee receives XRP
+Payee receives XDV
 if channel isn't expired.
 fg=#27a2db</panel_attributes>
     <additional_attributes>10.0;120.0;10.0;10.0;90.0;10.0</additional_attributes>
@@ -260,7 +260,7 @@ use tfClose flag</panel_attributes>
     </coordinates>
     <panel_attributes>Channel is closed and
 removed from ledger.
-Unclaimed XRP is 
+Unclaimed XDV is 
 returned to payer</panel_attributes>
     <additional_attributes/>
   </element>
@@ -354,7 +354,7 @@ fg=#27a2db</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;..
 Channel has 
-XRP left;
+XDV left;
 sets Expiration</panel_attributes>
     <additional_attributes>190.0;20.0;10.0;20.0</additional_attributes>
   </element>
@@ -384,7 +384,7 @@ fg=#27a2db</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;..
 Channel is 
-out of XRP</panel_attributes>
+out of XDV</panel_attributes>
     <additional_attributes>10.0;160.0;10.0;90.0;130.0;90.0;130.0;10.0</additional_attributes>
   </element>
   <element>
@@ -467,7 +467,7 @@ transaction)</panel_attributes>
       <h>55</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-Payer: Add more XRP to channel
+Payer: Add more XDV to channel
 (PaymentChannelFund transaction)
 fg=#27a2db</panel_attributes>
     <additional_attributes>10.0;10.0;110.0;10.0;110.0;30.0;10.0;30.0</additional_attributes>
@@ -510,7 +510,7 @@ group=2</panel_attributes>
       <h>66</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-XRP Ledger transaction
+XDV Ledger transaction
 (needs 3-5 seconds 
 for consensus)
 fg=#27a2db

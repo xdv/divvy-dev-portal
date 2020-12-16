@@ -1,12 +1,12 @@
 # Demurrage
 
-**Warning:** Demurrage is a deprecated feature with no ongoing support. This page describes historical behavior of older versions of Ripple software.
+**Warning:** Demurrage is a deprecated feature with no ongoing support. This page describes historical behavior of older versions of Divvy software.
 
-[Demurrage](http://en.wikipedia.org/wiki/Demurrage_%28currency%29) is a negative interest rate on assets held that represents the cost of holding those assets. To represent the demurrage on an issued currency in the XRP Ledger, you can track it using a custom [currency code](currency-formats.html#currency-codes) that indicates the demurrage rate. This effectively creates separate versions of the currency for each varying amount of demurrage. Client applications can support this by representing the demurraging currency code with an annual percentage rate alongside the currency code. For example: "XAU (-0.5%pa)".
+[Demurrage](http://en.wikipedia.org/wiki/Demurrage_%28currency%29) is a negative interest rate on assets held that represents the cost of holding those assets. To represent the demurrage on an issued currency in the XDV Ledger, you can track it using a custom [currency code](currency-formats.html#currency-codes) that indicates the demurrage rate. This effectively creates separate versions of the currency for each varying amount of demurrage. Client applications can support this by representing the demurraging currency code with an annual percentage rate alongside the currency code. For example: "XAU (-0.5%pa)".
 
 ## Representing Demurraging Currency Amounts
 
-Rather than continuously update all amounts in the XRP Ledger, this approach divides amounts of interest-bearing or demurraging currency into two types of amount: "ledger values" recorded in the XRP Ledger, and "display values" shown to people. The "ledger values" represent the value of the currency at a fixed point, namely the "Ripple Epoch" of midnight January 1, 2000. The "display values" represent the amount at a later point in time (usually the current time) after calculating continuous interest or demurrage from the Ripple Epoch until that time.
+Rather than continuously update all amounts in the XDV Ledger, this approach divides amounts of interest-bearing or demurraging currency into two types of amount: "ledger values" recorded in the XDV Ledger, and "display values" shown to people. The "ledger values" represent the value of the currency at a fixed point, namely the "Divvy Epoch" of midnight January 1, 2000. The "display values" represent the amount at a later point in time (usually the current time) after calculating continuous interest or demurrage from the Divvy Epoch until that time.
 
 **Tip:** You can think of demurrage as similar to inflation, where the value of all assets affected by it decreases over time, but the ledger always holds amounts in year-2000 values. This does not reflect actual real-world inflation; demurrage is more like hypothetical inflation at a constant rate.
 
@@ -26,7 +26,7 @@ D = A × ( e ^ (t ÷ τ) )
 - **D** is the amount after demurrage
 - **A** is the pre-demurrage amount as recorded in the global ledger
 - **e** is Euler's number
-- **t** is the number of seconds since the Ripple Epoch (0:00 on January 1, 2000 UTC)
+- **t** is the number of seconds since the Divvy Epoch (0:00 on January 1, 2000 UTC)
 - **τ** is the e-folding time in seconds. This value is [calculated from the desired interest rate](#calculating-e-folding-time).
 
 To convert between display amounts and ledger amounts, you can use the following steps:
@@ -35,7 +35,7 @@ To convert between display amounts and ledger amounts, you can use the following
 2. Apply it to the amount to convert:
     - To convert ledger values to display values, multiply by the demurrage coefficient.
     - To convert display values to ledger values, divide by the demurrage coefficient.
-3. If necessary, adjust the resulting value so that it can be represented to the desired accuracy. Ledger values are limited to 15 decimal digits of precision, according to the XRP Ledger's [issued currency format](currency-formats.html#issued-currency-precision).
+3. If necessary, adjust the resulting value so that it can be represented to the desired accuracy. Ledger values are limited to 15 decimal digits of precision, according to the XDV Ledger's [issued currency format](currency-formats.html#issued-currency-precision).
 
 
 ## Interest-Bearing Currency Code Format
@@ -62,7 +62,7 @@ To calculate an e-folding time for a given rate of annual percent interest:
 3. Take the natural log of that number. For example, **ln(0.995) = -0.005012541823544286**. (This number is positive if the initial interest rate was positive, and negative if the interest rate was negative.)
 4. Take the number of seconds in one year (31536000) and divide by the natural log result from the previous step. For example, **31536000 ÷ -0.005012541823544286 = -6291418827.045599**. This result is the e-folding time in seconds.
 
-**Note:** By convention, Ripple's interest/demurrage rules use a fixed number of seconds per year (31536000), which is not adjusted for leap days or leap seconds.
+**Note:** By convention, Divvy's interest/demurrage rules use a fixed number of seconds per year (31536000), which is not adjusted for leap days or leap seconds.
 
 ## Client Support
 
@@ -74,11 +74,11 @@ To support interest-bearing and demurraging currencies, client applications must
 
 - Clients must distinguish between currencies that do and do not have interest or demurrage, and among currencies that have different rates of interest or demurrage. Clients should be able to parse the [Interest-Bearing Currency Code Format](#interest-bearing-currency-code-format) into a display such as "XAU (-0.5% pa)".
 
-### ripple-lib Support
+### divvy-lib Support
 
-Demurrage was supported in ripple-lib versions **0.7.37** through **0.12.9**. Demurrage is ***not supported*** in [RippleAPI](rippleapi-reference.html).
+Demurrage was supported in divvy-lib versions **0.7.37** through **0.12.9**. Demurrage is ***not supported*** in [DivvyAPI](divvyapi-reference.html).
 
-The following code samples demonstrate how to use compatible versions of ripple-lib to convert between ledger values and display values. Also see the [Ripple Demurrage Calculator](https://ripple.github.io/ripple-demurrage-tool/).
+The following code samples demonstrate how to use compatible versions of divvy-lib to convert between ledger values and display values. Also see the [Divvy Demurrage Calculator](https://xdv.github.io/divvy-demurrage-tool/).
 
 To convert from a display value to a ledger value, use `Amount.from_human()`:
 
@@ -87,7 +87,7 @@ To convert from a display value to a ledger value, use `Amount.from_human()`:
 // and pass in a reference_date that represents the current date
 // (in this case, ledger value 10 XAU with 0.5% annual demurrage,
 //  at 2017-11-04T00:07:50Z.)
-var demAmount = ripple.Amount.from_human('10 0158415500000000C1F76FF6ECB0BAC600000000',
+var demAmount = divvy.Amount.from_human('10 0158415500000000C1F76FF6ECB0BAC600000000',
                                   {reference_date:563069270});
 
 // set the issuer
@@ -105,7 +105,7 @@ To convert from a ledger value to a display value:
 
 ```js
 // create an Amount object with the ledger value,
-ledgerAmount = ripple.Amount.from_json({
+ledgerAmount = divvy.Amount.from_json({
   "currency": "015841551A748AD2C1F76FF6ECB0CCCD00000000",
   "issuer": "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh",
   "value": "10.93625123082769"})

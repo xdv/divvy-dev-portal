@@ -24,7 +24,7 @@ Figure out the values of the [CheckCash transaction][] fields. To cash a check f
 | `TransactionType` | String                    | The value `CheckCash` indicates this is a CheckCash transaction. |
 | `Account`         | String (Address)          | The address of the sender who is cashing the Check. (In other words, your address.) |
 | `CheckID`         | String                    | The ID of the Check object in the ledger to cash. You can get this information by looking up the metadata of the CheckCreate transaction using the [tx method][] or by looking for Checks using the [account_objects method][]. |
-| `DeliverMin`      | String or Object (Amount) | A minimum amount to receive from the Check. If you cannot receive at least this much, cashing the Check fails, leaving the Check in the ledger so you can try again. For XRP, this must be a string specifying drops of XRP. For issued currencies, this is an object with `currency`, `issuer`, and `value` fields. The `currency` and `issuer` fields must match the corresponding fields in the Check object, and the `value` must be less than or equal to the amount in the Check object. For more information on specifying currency amounts, see [Specifying Currency Amounts][]. |
+| `DeliverMin`      | String or Object (Amount) | A minimum amount to receive from the Check. If you cannot receive at least this much, cashing the Check fails, leaving the Check in the ledger so you can try again. For XDV, this must be a string specifying drops of XDV. For issued currencies, this is an object with `currency`, `issuer`, and `value` fields. The `currency` and `issuer` fields must match the corresponding fields in the Check object, and the `value` must be less than or equal to the amount in the Check object. For more information on specifying currency amounts, see [Specifying Currency Amounts][]. |
 
 ### Example CheckCash Preparation for a flexible amount
 
@@ -43,7 +43,7 @@ The following examples show how to prepare a transaction to cash a Check for a f
 }
 ```
 
-*RippleAPI*
+*DivvyAPI*
 
 ```js
 {% include '_code-samples/checks/js/prepareCashFlex.js' %}
@@ -156,15 +156,15 @@ If cashing the Check failed with a `tec`-class code, look up the code in the [Fu
 | `tecNO_PERMISSION` | The sender of the CheckCash transaction isn't the `Destination` of the Check. | Double-check the `Destination` of the Check. |
 | `tecNO_AUTH` | The issuer of the currency from the check is using [Authorized Trust Lines](authorized-trust-lines.html) but the recipient's trust line to the issuer is not approved. | Ask the issuer to authorize this trust line, then try again to cash the Check after they do. |
 | `tecPATH_PARTIAL` | The Check could not deliver enough issued currency, either due to trust line limits or because the sender does not have enough balance of the currency to send (after including the issuer's [transfer fee](transfer-fees.html), if there is one). | If the problem is the trust line limit, send a [TrustSet transaction][] to increase your limit (if desired) or lower your balance by spending some of the currency, then try to cash the Check again. If the problem is the sender's balance, wait for the sender to have more of the Check's currency, or try again to cash the Check for a lesser amount. |
-| `tecUNFUNDED_PAYMENT` | The Check could not deliver enough XRP. | Wait for the sender to have more XRP, or try again to cash the Check for a lesser amount. |
+| `tecUNFUNDED_PAYMENT` | The Check could not deliver enough XDV. | Wait for the sender to have more XDV, or try again to cash the Check for a lesser amount. |
 
 ## {{cash_flex_n.next()}}. Confirm delivered amount
 
 If the Check was cashed for a flexible `DeliverMin` amount and succeeded, you can assume that the Check was cashed for at least the `DeliverMin` amount. To get the exact amount delivered, check the transaction metadata. <!--{# TODO: Update if RIPD-1623 adds a delivered_amount field. #}--> The metadata's `AffectedNodes` array contains one or two objects that reflect the change in balances from cashing the Check, depending on the type of currency.
 
-- For XRP, the `AccountRoot` object of the Check's sender has its XRP `Balance` field debited. The `AccountRoot` object of the Check's recipient (the one who sent the CheckCash transaction) has its XRP `Balance` credited for at least the `DeliverMin` of the CheckCash transaction minus the [transaction cost](transaction-cost.html) of sending the transaction.
+- For XDV, the `AccountRoot` object of the Check's sender has its XDV `Balance` field debited. The `AccountRoot` object of the Check's recipient (the one who sent the CheckCash transaction) has its XDV `Balance` credited for at least the `DeliverMin` of the CheckCash transaction minus the [transaction cost](transaction-cost.html) of sending the transaction.
 
-    For example, the following `ModifiedNode` shows that the account rGPnRH1EBpHeTF2QG8DCAgM7z5pb75LAis, the Check's recipient and the sender of this CheckCash transaction, had its XRP balance change from `9999999970` drops to `10099999960` drops, meaning the recipient was credited a _net_ of 99.99999 XRP as a result of processing the transaction.
+    For example, the following `ModifiedNode` shows that the account rGPnRH1EBpHeTF2QG8DCAgM7z5pb75LAis, the Check's recipient and the sender of this CheckCash transaction, had its XDV balance change from `9999999970` drops to `10099999960` drops, meaning the recipient was credited a _net_ of 99.99999 XDV as a result of processing the transaction.
 
           {
             "ModifiedNode": {
@@ -186,24 +186,24 @@ If the Check was cashed for a flexible `DeliverMin` amount and succeeded, you ca
             }
           }
 
-    The net amount of 99.99999 XRP includes deducting the transaction cost that is destroyed to pay for sending this CheckCash transaction. The following transaction instructions (excerpted) show that the transaction cost (the `Fee` field) was 10 drops of XRP. By adding this to the net balance change, we conclude that the recipient, rGPnRH1EBpHeTF2QG8DCAgM7z5pb75LAis, was credited a _gross_ amount of exactly 100 XRP for cashing the Check.
+    The net amount of 99.99999 XDV includes deducting the transaction cost that is destroyed to pay for sending this CheckCash transaction. The following transaction instructions (excerpted) show that the transaction cost (the `Fee` field) was 10 drops of XDV. By adding this to the net balance change, we conclude that the recipient, rGPnRH1EBpHeTF2QG8DCAgM7z5pb75LAis, was credited a _gross_ amount of exactly 100 XDV for cashing the Check.
 
         "Account" : "rGPnRH1EBpHeTF2QG8DCAgM7z5pb75LAis",
         "TransactionType" : "CheckCash",
         "DeliverMin" : "95000000",
         "Fee" : "10",
 
-- For issued currencies where the sender or recipient of the check is the issuer, the `RippleState` object representing the trust line between those accounts has its `Balance` adjusted in the favor of the Check's recipient.
+- For issued currencies where the sender or recipient of the check is the issuer, the `DivvyState` object representing the trust line between those accounts has its `Balance` adjusted in the favor of the Check's recipient.
 
-    <!-- {# TODO: example of single-RippleState balance changes #}-->
+    <!-- {# TODO: example of single-DivvyState balance changes #}-->
 
-- For issued currencies with a third-party issuer, there are changes to two `RippleState` objects, representing the trust lines connecting the sender to the issuer, and the issuer to the recipient. The `RippleState` object representing the relationship between the Check's sender and the issuer has its `Balance` changed in favor of the issuer, and the `RippleState` object representing the relationship between the issuer and the recipient has its `Balance` changed in favor of the recipient.
+- For issued currencies with a third-party issuer, there are changes to two `DivvyState` objects, representing the trust lines connecting the sender to the issuer, and the issuer to the recipient. The `DivvyState` object representing the relationship between the Check's sender and the issuer has its `Balance` changed in favor of the issuer, and the `DivvyState` object representing the relationship between the issuer and the recipient has its `Balance` changed in favor of the recipient.
 
-    <!--{# TODO: example of double-RippleState balance changes #}-->
+    <!--{# TODO: example of double-DivvyState balance changes #}-->
 
     - If the issued currency has a [transfer fee](transfer-fees.html), the Check's sender may be debited more than the recipient is credited. (The difference is the transfer fee, which is returned to the issuer as a decreased net obligation.)
 
 <!--{# common links #}-->
-[RippleAPI]: rippleapi-reference.html
+[DivvyAPI]: divvyapi-reference.html
 {% include '_snippets/tx-type-links.md' %}
-{% include '_snippets/rippled-api-links.md' %}
+{% include '_snippets/divvyd-api-links.md' %}

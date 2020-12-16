@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 # Transaction Serialization Sample Code (Python3 version)
-# Author: rome@ripple.com
-# Copyright Ripple 2018
+# Author: rome@xdv.io
+# Copyright Divvy 2018
 # Requires Python 3.5+ because of bytes.hex()
 
 import argparse
@@ -12,7 +12,7 @@ import re
 import sys
 
 from address import decode_address
-from xrpl_num import IssuedAmount
+from xdvl_num import IssuedAmount
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.StreamHandler())
@@ -22,7 +22,7 @@ def load_defs(fname="definitions.json"):
     Loads JSON from the definitions file and converts it to a preferred format.
 
     (The definitions file should be drop-in compatible with the one from the
-    ripple-binary-codec JavaScript package.)
+    divvy-binary-codec JavaScript package.)
     """
     with open(fname) as definitions_file:
         definitions = json.load(definitions_file)
@@ -134,23 +134,23 @@ def accountid_to_bytes(address):
 
 def amount_to_bytes(a):
     """
-    Serializes an "Amount" type, which can be either XRP or an issued currency:
-    - XRP: 64 bits; 0, followed by 1 ("is positive"), followed by 62 bit UInt amount
+    Serializes an "Amount" type, which can be either XDV or an issued currency:
+    - XDV: 64 bits; 0, followed by 1 ("is positive"), followed by 62 bit UInt amount
     - Issued Currency: 64 bits of amount, followed by 160 bit currency code and
       160 bit issuer AccountID.
     """
     if type(a) == str:
-        # is XRP
-        xrp_amt = int(a)
-        if (xrp_amt >= 0):
-            assert xrp_amt <= 10**17
+        # is XDV
+        xdv_amt = int(a)
+        if (xdv_amt >= 0):
+            assert xdv_amt <= 10**17
             # set the "is positive" bit -- this is backwards from usual two's complement!
-            xrp_amt = xrp_amt | 0x4000000000000000
+            xdv_amt = xdv_amt | 0x4000000000000000
         else:
-            assert xrp_amt >= -(10**17)
+            assert xdv_amt >= -(10**17)
             # convert to absolute value, leaving the "is positive" bit unset
-            xrp_amt = -xrp_amt
-        return xrp_amt.to_bytes(8, byteorder="big", signed=False)
+            xdv_amt = -xdv_amt
+        return xdv_amt.to_bytes(8, byteorder="big", signed=False)
     elif type(a) == dict:
         if sorted(a.keys()) != ["currency", "issuer", "value"]:
             raise ValueError("amount must have currency, value, issuer only (actually had: %s)" %
@@ -161,7 +161,7 @@ def amount_to_bytes(a):
         currency_code = currency_code_to_bytes(a["currency"])
         return issued_amt + currency_code + decode_address(a["issuer"])
     else:
-        raise ValueError("amount must be XRP string or {currency, value, issuer}")
+        raise ValueError("amount must be XDV string or {currency, value, issuer}")
 
 def array_to_bytes(array):
     """
@@ -194,20 +194,20 @@ def blob_to_bytes(field_val):
     vl_contents = bytes.fromhex(field_val)
     return vl_encode(vl_contents)
 
-def currency_code_to_bytes(code_string, xrp_ok=False):
+def currency_code_to_bytes(code_string, xdv_ok=False):
     if re.match(r"^[A-Za-z0-9?!@#$%^&*<>(){}\[\]|]{3}$", code_string):
         # ISO 4217-like code
-        if code_string == "XRP":
-            if xrp_ok:
-                # Rare, but when the currency code "XRP" is serialized, it's
+        if code_string == "XDV":
+            if xdv_ok:
+                # Rare, but when the currency code "XDV" is serialized, it's
                 # a special-case all zeroes.
-                logger.debug("Currency code(XRP): "+("0"*40))
+                logger.debug("Currency code(XDV): "+("0"*40))
                 return bytes(20)
-            raise ValueError("issued currency can't be XRP")
+            raise ValueError("issued currency can't be XDV")
 
         code_ascii = code_string.encode("ASCII")
         logger.debug("Currency code ASCII: %s"%code_ascii.hex())
-        # standard currency codes: https://developers.ripple.com/currency-formats.html#standard-currency-codes
+        # standard currency codes: https://developers.xdv.io/currency-formats.html#standard-currency-codes
         # 8 bits type code (0x00)
         # 88 bits reserved (0's)
         # 24 bits ASCII
@@ -322,7 +322,7 @@ def path_as_bytes(path):
             step_data.append(decode_address(step["account"]))
         if "currency" in step.keys():
             type_byte |= 0x10
-            step_data.append(currency_code_to_bytes(step["currency"], xrp_ok=True))
+            step_data.append(currency_code_to_bytes(step["currency"], xdv_ok=True))
         if "issuer" in step.keys():
             type_byte |= 0x20
             step_data.append(decode_address(step["issuer"]))

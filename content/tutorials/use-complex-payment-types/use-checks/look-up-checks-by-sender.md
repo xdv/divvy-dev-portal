@@ -6,19 +6,19 @@ This tutorial shows how to look up [Checks](checks.html) by their sender. You ma
 
 ## 1. Look up all Checks for the address
 
-<!--{# TODO: Update if https://github.com/ripple/rippled/issues/2443 gets done #}-->
+<!--{# TODO: Update if https://github.com/xdv/divvyd/issues/2443 gets done #}-->
 
 To get a list of all incoming and outgoing Checks for an account, use the `account_objects` command with the sending account's address and set the `type` field of the request to `checks`.
 
 **Note:** The commandline interface to the `account_objects` command does not accept the `type` field. You can use the [json method][] to send the JSON-RPC format request on the commandline instead.
 
-**Caution:** RippleAPI does not have built-in support for the `account_objects` method. You can make a raw request in the WebSocket format using the `api.connection.request(websocket_request_json)` method. The response to this method is in the `rippled` API format. (For example, XRP is specified in integer "drops" rather than as a decimal.)
+**Caution:** DivvyAPI does not have built-in support for the `account_objects` method. You can make a raw request in the WebSocket format using the `api.connection.request(websocket_request_json)` method. The response to this method is in the `divvyd` API format. (For example, XDV is specified in integer "drops" rather than as a decimal.)
 
 ### Example Request
 
 <!-- MULTICODE_BLOCK_START -->
 
-*RippleAPI*
+*DivvyAPI*
 
 ```js
 {% include '_code-samples/checks/js/getChecks.js' %}
@@ -36,7 +36,7 @@ To get a list of all incoming and outgoing Checks for an account, use the `accou
 
 <!-- MULTICODE_BLOCK_START -->
 
-*RippleAPI*
+*DivvyAPI*
 
 ```
 {% include '_code-samples/checks/js/get-checks-resp.txt' %}
@@ -75,6 +75,6 @@ for (i=0; i < account_objects_response.account_objects.length; i++) {
 ```
 
 <!--{# common links #}-->
-[RippleAPI]: rippleapi-reference.html
+[DivvyAPI]: divvyapi-reference.html
 {% include '_snippets/tx-type-links.md' %}
-{% include '_snippets/rippled-api-links.md' %}
+{% include '_snippets/divvyd-api-links.md' %}

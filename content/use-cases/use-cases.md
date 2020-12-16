@@ -4,20 +4,20 @@ Use these roadmaps to walk you, task-by-task, through implementing your use case
 
 Here are some of our users' most popular use cases:
 
-* **[Run a rippled Validator](run-a-rippled-validator.html)**
+* **[Run a divvyd Validator](run-a-divvyd-validator.html)**
 
-      Learn how to install, run, and maintain a `rippled` server in validator mode.
+      Learn how to install, run, and maintain a `divvyd` server in validator mode.
 
-* **[List XRP in My Exchange](list-xrp-in-your-exchange.html)**
+* **[List XDV in My Exchange](list-xdv-in-your-exchange.html)**
 
-      Integrate with the XRP Ledger to be able to list XRP in your exchange, enabling your users to deposit and withdraw XRP.
+      Integrate with the XDV Ledger to be able to list XDV in your exchange, enabling your users to deposit and withdraw XDV.
 
-* **[Contribute Code to `rippled`](contribute-code-to-rippled.html)**
+* **[Contribute Code to `divvyd`](contribute-code-to-divvyd.html)**
 
-      Help us improve the open source reference server implementation of `rippled`, the server that is the core of the XRP Ledger peer-to-peer network.
+      Help us improve the open source reference server implementation of `divvyd`, the server that is the core of the XDV Ledger peer-to-peer network.
 
-* **[Contribute Code to `ripple-lib`](contribute-code-to-ripple-lib.html)**
+* **[Contribute Code to `divvy-lib`](contribute-code-to-divvy-lib.html)**
 
-      Help us improve `ripple-lib`, the official client library for RippleAPI.
+      Help us improve `divvy-lib`, the official client library for DivvyAPI.
 
-Want to see a roadmap for a case not listed here? [Contact us >](mailto:docs@ripple.com)
+Want to see a roadmap for a case not listed here? [Contact us >](mailto:docs@xdv.io)

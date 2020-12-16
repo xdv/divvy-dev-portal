@@ -1,8 +1,8 @@
 'use strict'
-const RippleAPI = require('ripple-lib').RippleAPI
+const DivvyAPI = require('divvy-lib').DivvyAPI
 
 // Can sign offline if the txJSON has all required fields
-const api = new RippleAPI()
+const api = new DivvyAPI()
 
 const txJSON = '{"Account":"rBXsgNkPcDN2runsvWmwxk3Lh97zdgo9za", \
   "TransactionType":"CheckCreate", \
