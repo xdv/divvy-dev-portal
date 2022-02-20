@@ -1844,7 +1844,6 @@ pages:
         doc_type: References
         supercategory: divvyd API
         category: Admin divvyd Methods
-        blurb: Administer a divvyd server with these admin API methods.
         targets:
             - local
 
